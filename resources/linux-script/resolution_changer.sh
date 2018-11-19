@@ -19,12 +19,12 @@ do
         PORT+=("$port")
     fi
 done <<<$(xrandr)
+echo "=================="
 
 # Check if have port argument
 if ! [[ "$3" =~ ^[0-9]+$ ]]
     then
         # If argrument 3 is not a number: Get USEDPORT from user input
-        echo "=================="
         printf "Please select index of port, which you wanna use (0 OR 1 OR 2 ...etc.):"
         read USEDPORT
     else
