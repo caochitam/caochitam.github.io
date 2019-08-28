@@ -7,13 +7,18 @@
   </head>
   <body>
     <h3 class="text-center">Tìm bệnh án</h3>
-    <form class="container" onsubmit="search()">
-      <input name="query" required class="form-control w-100" placeholder="Tên bệnh nhân || Số điện thoai || 20191231"> 
+    <form id="searchForm" class="container">
+      <input id="query" name="query" required class="form-control w-100" placeholder="Tên bệnh nhân || Số điện thoai || 20191231"> 
       <button class="btn btn-success mt-3 float-right">Tìm kiếm</button>
     </form>
     <script>
-      function search(){
-       alert("OK"); 
+      window.onload=function() {
+        document.getElementById("searchForm").onsubmit=function(e) {
+          e=e?e:event;
+          e.preventDefault(); // cancel the submit
+          var val = document.getElementById("query").value;
+          console.log(val);
+        }  
       }
     </script>
   </body>
