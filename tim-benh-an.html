@@ -17,7 +17,9 @@
           e=e?e:event;
           e.preventDefault(); // cancel the submit
           var val = document.getElementById("query").value;
-          console.log(val);
+          window.location.href = "https://drive.google.com/drive/search?q=title:"+
+            encodeURI(val)
+            +"%20parent:1CiIS2Dt84yPflooKN4w9HPevaFrcrig7";
         }  
       }
     </script>
