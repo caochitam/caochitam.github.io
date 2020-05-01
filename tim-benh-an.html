@@ -17,9 +17,8 @@
           e=e?e:event;
           e.preventDefault(); // cancel the submit
           var val = document.getElementById("query").value;
-          window.location.href = "https://drive.google.com/drive/search?q=title:"+
-            encodeURI(val)
-            +"%20parent:1ffTOwsQrAh6ceu6EOV03bblx4njFWIWp";
+          window.location.href = "https://mega.nz/#fm/search/"+
+            encodeURI(val);
         }  
       }
     </script>
