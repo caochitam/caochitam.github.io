@@ -1,3 +1,5 @@
+var me = document.currentScript;
+console.log(me);
 const froot = document.getElementById("getlinkfshare_net");
 const _button = document.createElement("button");
 _button.id = 'get-code-fshare';
