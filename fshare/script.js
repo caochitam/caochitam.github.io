@@ -24,7 +24,8 @@ window.addEventListener("blur", () => (isFocus = false));
 function getCodeFshare() {
     if (document.referrer &&
         document.referrer.includes("google.com") &&
-        (targets == [] || location.href.match(targetsRegex))) {
+        (targets == [] || location.href.match(targetsRegex) != null)) {
+            console.log("GET CODE!")
         jQuery("#openFshareBtn").css({ color: "#cd1417", cursor: "pointer" }),
             jQuery("#openFshareBtn").click(() => {
                 jQuery.get("https://fshare.ga/get-code-3", (a) => (fCode = a)), jQuery("#openFshareBtn").hide(), jQuery("#fGetCode").show();
