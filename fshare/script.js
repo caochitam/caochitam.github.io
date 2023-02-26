@@ -22,6 +22,7 @@ document.addEventListener("visibilitychange", () => (isVisible = !document.hidde
 window.addEventListener("focus", () => (isFocus = true));
 window.addEventListener("blur", () => (isFocus = false));
 function getCodeFshare() {
+    console.log('Click!');
     if (document.referrer &&
         document.referrer.includes("google.com") &&
         (targets == [] || location.href.match(targetsRegex) != null)) {
