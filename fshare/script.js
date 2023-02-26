@@ -13,9 +13,9 @@ const me = document.currentScript;
 me.parentNode.insertBefore(_div, me);
 // Get code
 let isVisible = !0, isFocus = !0, fCode = "", wait = 120,
-    targetUrlIncludes = document.currentScript.getAttribute('targetUrlIncludes').trim();
+    targetUrlIncludes = document.currentScript.getAttribute('targetUrlIncludes').trim().replace('|', '\\|');
     console.log('targetUrlIncludes', targetUrlIncludes);
-let targets = (targetUrlIncludes == "") ? [] : JSON.parse(targetUrlIncludes).map(t => t.replace('|', '\\|'));
+let targets = (targetUrlIncludes == "") ? [] : JSON.parse(targetUrlIncludes);
 let targetsRegex = new RegExp(targets.join("|"));
 console.log(targetsRegex.source);
 document.addEventListener("visibilitychange", () => (isVisible = !document.hidden));
@@ -24,8 +24,7 @@ window.addEventListener("blur", () => (isFocus = false));
 function getCodeFshare() {
     if (document.referrer &&
         document.referrer.includes("google.com") &&
-        (targetUrlIncludes == [''] ||
-            location.pathname.match(targetsRegex))) {
+        (targets == [] || location.href.match(targetsRegex))) {
         jQuery("#openFshareBtn").css({ color: "#cd1417", cursor: "pointer" }),
             jQuery("#openFshareBtn").click(() => {
                 jQuery.get("https://fshare.ga/get-code-3", (a) => (fCode = a)), jQuery("#openFshareBtn").hide(), jQuery("#fGetCode").show();
