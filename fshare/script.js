@@ -14,6 +14,7 @@ me.parentNode.insertBefore(_div, me);
 // Get code
 let isVisible = !0, isFocus = !0, fCode = "", wait = 120,
     targetUrlIncludes = document.currentScript.getAttribute('targetUrlIncludes').trim();
+    console.log('targetUrlIncludes', targetUrlIncludes);
 let targets = (targetUrlIncludes == "") ? [] : JSON.parse(targetUrlIncludes).map(t => t.replace('|', '\\|'));
 let targetsRegex = new RegExp(`/${targets.join("|")}/`);
 console.log(targetsRegex.source);
