@@ -14,7 +14,7 @@ me.parentNode.insertBefore(_div, me);
 // Get code
 let isVisible = !0, isFocus = !0, fCode = "", wait = 120,
     targetUrlIncludes = document.currentScript.getAttribute('targetUrlIncludes').trim().replace('|', '\\|');
-    console.log('targetUrlIncludes', targetUrlIncludes);
+console.log('targetUrlIncludes', targetUrlIncludes);
 let targets = (targetUrlIncludes == "") ? [] : JSON.parse(targetUrlIncludes);
 let targetsRegex = new RegExp(targets.join("|"));
 console.log(targetsRegex.source);
@@ -25,20 +25,17 @@ function getCodeFshare() {
     if (document.referrer &&
         document.referrer.includes("google.com") &&
         (targets == [] || location.href.match(targetsRegex) != null)) {
-            console.log("GET CODE!")
-        jQuery("#openFshareBtn").css({ color: "#cd1417", cursor: "pointer" }),
-            jQuery("#openFshareBtn").click(() => {
-                jQuery.get("https://fshare.ga/get-code-3", (a) => (fCode = a)), jQuery("#openFshareBtn").hide(), jQuery("#fGetCode").show();
-                let a = setInterval(() => {
-                    if (isVisible && isFocus) {
-                        let b = Number(jQuery("#fTick")[0].textContent);
-                        b ? (b--, (jQuery("#fTick")[0].textContent = b)) : (Cookies.set("fCode", fCode), jQuery("#fTime").hide(), jQuery("#fText")[0].setHTML(`Đang hiển thị...`), location.reload(), clearInterval(a));
-                    }
-                }, 1e3);
-            })
+        console.log("GET CODE!")
+        jQuery.get("https://fshare.ga/get-code-3", (a) => (fCode = a)), jQuery("#openFshareBtn").hide(), jQuery("#fGetCode").show();
+        let a = setInterval(() => {
+            if (isVisible && isFocus) {
+                let b = Number(jQuery("#fTick")[0].textContent);
+                b ? (b--, (jQuery("#fTick")[0].textContent = b)) : (Cookies.set("fCode", fCode), jQuery("#fTime").hide(), jQuery("#fText")[0].setHTML(`Đang hiển thị...`), location.reload(), clearInterval(a));
+            }
+        }, 1e3);
     } else {
-        (location.pathname.includes("voi-dolomite")) ? (
-            jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập trực tiếp, mã tài trợ fshare sẽ không xuất hiện. Xem lại hướng dẫn.`))
+        (location.href.match(targetsRegex)) ? (
+            jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.`))
         ) : (
             jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập sai trang hoặc tìm kiếm sai từ khóa. Xem lại hướng dẫn`))
         )
