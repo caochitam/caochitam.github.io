@@ -36,7 +36,7 @@ function getCodeFshare() {
             }
         }, 1e3);
     } else {
-        (location.href.match(targetsRegex)) ? (
+        (!document.referrer.includes("google.com")) ? (
             jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.`))
         ) : (
             jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập sai trang hoặc tìm kiếm sai từ khóa. Xem lại hướng dẫn`))
