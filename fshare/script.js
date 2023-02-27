@@ -28,14 +28,21 @@ function getCodeFshare() {
     if(!document.referrer.includes("google.com")) alert('Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.')
     else if(!isMatchTargetUrl) alert('Bạn đang truy cập sai trang hoặc tìm kiếm sai từ khóa. Xem lại hướng dẫn')
     else{
-        console.log("GET CODE!")
-        jQuery.get("https://fshare.ga/get-code-3", (a) => (fCode = a)), jQuery("#openFshareBtn").hide(), jQuery("#fGetCode").show();
-        let a = setInterval(() => {
-            if (isVisible && isFocus) {
-                let b = Number(jQuery("#fTick")[0].textContent);
-                b ? (b--, (jQuery("#fTick")[0].textContent = b)) : (Cookies.set("fCode", fCode), jQuery("#fTime").hide(), jQuery("#fText")[0].setHTML(`Đang hiển thị...`), location.reload(), clearInterval(a));
-            }
-        }, 1e3);
+        console.log("GET CODE!");
+        let code;
+        jQuery.get("https://fshare.ga/get-code-3", (a) => {console.log('code:',a); code = a});
+        let coutDown;
+        for (let i = coutDown; i > 0; i--) {
+            console.log(coutDown)
+        }
+        alert(code);
+        // let a = setInterval(() => {
+        //     if (isVisible && isFocus) {
+        //         // let b = Number(jQuery("#fTick")[0].textContent);
+        //         i
+        //         // coutDown ? (coutDown--) : (Cookies.set("fCode", fCode), jQuery("#fTime").hide(), jQuery("#fText")[0].setHTML(`Đang hiển thị...`), location.reload(), clearInterval(a));
+        //     }
+        // }, 1e3);
     }
     // if (document.referrer &&
     //     document.referrer.includes("google.com") &&
