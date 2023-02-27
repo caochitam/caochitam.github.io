@@ -18,15 +18,16 @@ console.log('targetUrlIncludes', targetUrlIncludes);
 let targets = (targetUrlIncludes == "") ? [] : JSON.parse(targetUrlIncludes);
 let targetsRegex = new RegExp(targets.join("|"));
 console.log(targetsRegex.source);
+const isMatchTargetUrl = targets == [] || location.href.match(targetsRegex) != null;
 document.addEventListener("visibilitychange", () => (isVisible = !document.hidden));
 window.addEventListener("focus", () => (isFocus = true));
 window.addEventListener("blur", () => (isFocus = false));
 document.getElementById('get-code-fshare').onclick = getCodeFshare;
 function getCodeFshare() {
     console.log('Click!');
-    if (document.referrer &&
-        document.referrer.includes("google.com") &&
-        (targets == [] || location.href.match(targetsRegex) != null)) {
+    if(!document.referrer.includes("google.com")) alert('Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.')
+    else if(!isMatchTargetUrl) alert('Bạn đang truy cập sai trang hoặc tìm kiếm sai từ khóa. Xem lại hướng dẫn')
+    else{
         console.log("GET CODE!")
         jQuery.get("https://fshare.ga/get-code-3", (a) => (fCode = a)), jQuery("#openFshareBtn").hide(), jQuery("#fGetCode").show();
         let a = setInterval(() => {
@@ -35,12 +36,17 @@ function getCodeFshare() {
                 b ? (b--, (jQuery("#fTick")[0].textContent = b)) : (Cookies.set("fCode", fCode), jQuery("#fTime").hide(), jQuery("#fText")[0].setHTML(`Đang hiển thị...`), location.reload(), clearInterval(a));
             }
         }, 1e3);
-    } else {
-        (!document.referrer.includes("google.com")) ? (
-            jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.`))
-        ) : (
-            jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập sai trang hoặc tìm kiếm sai từ khóa. Xem lại hướng dẫn`))
-        )
     }
+    // if (document.referrer &&
+    //     document.referrer.includes("google.com") &&
+    //     (targets == [] || location.href.match(targetsRegex) != null)) {
+        
+    // } else {
+    //     (!document.referrer.includes("google.com")) ? (
+    //         jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.`))
+    //     ) : (
+    //         jQuery("#openFshareBtn").click(() => alert(`Bạn đang truy cập sai trang hoặc tìm kiếm sai từ khóa. Xem lại hướng dẫn`))
+    //     )
+    // }
 
 }
