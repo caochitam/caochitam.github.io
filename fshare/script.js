@@ -22,7 +22,8 @@ const isMatchTargetUrl = targets == [] || location.href.match(targetsRegex) != n
 document.addEventListener("visibilitychange", () => (isVisible = !document.hidden));
 window.addEventListener("focus", () => (isFocus = true));
 window.addEventListener("blur", () => (isFocus = false));
-document.getElementById('get-code-fshare').onclick = getCodeFshare;
+const mainButton = document.getElementById('get-code-fshare');
+mainButton.onclick = getCodeFshare;
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function getCodeFshare() {
     console.log('Click!');
@@ -33,7 +34,7 @@ async function getCodeFshare() {
         let code;
         jQuery.get("https://fshare.ga/get-code-3", (a) => {console.log('code:',a); code = a});
         for (let i = 60; i > 0; i--) {
-            console.log(i);
+            mainButton.textContent = "Vui lòng đợi " + i + "giây";
             await sleep(1000);
         }
         alert(code);
