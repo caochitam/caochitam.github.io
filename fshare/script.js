@@ -40,7 +40,6 @@ async function getCodeFshare() {
             mainButton.textContent = "Vui lòng đợi " + i + " giây";
             await sleep(1000);
         }
-        console.log(code);
         const _code = document.createElement("input");
         _code.id = "f-code";
         _code.style = "border: 0; text-align: center";
@@ -48,6 +47,7 @@ async function getCodeFshare() {
         _code.readOnly = true;
         const fCover = document.getElementById('f-cover');
         fCover.append(_code);
+        mainButton.textContent = "Copy mã"
         new ClipboardJS('#get-code-fshare');
         // let a = setInterval(() => {
         //     if (isVisible && isFocus) {
