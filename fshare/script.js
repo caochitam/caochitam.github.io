@@ -23,6 +23,7 @@ document.addEventListener("visibilitychange", () => (isVisible = !document.hidde
 window.addEventListener("focus", () => (isFocus = true));
 window.addEventListener("blur", () => (isFocus = false));
 document.getElementById('get-code-fshare').onclick = getCodeFshare;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function getCodeFshare() {
     console.log('Click!');
     if(!document.referrer.includes("google.com")) alert('Bạn đang truy cập trực tiếp, mã tài trợ sẽ không xuất hiện. Xem lại hướng dẫn.')
@@ -32,7 +33,8 @@ async function getCodeFshare() {
         let code;
         jQuery.get("https://fshare.ga/get-code-3", (a) => {console.log('code:',a); code = a});
         for (let i = 60; i > 0; i--) {
-            console.log(i)
+            console.log(i);
+            await sleep(1000);
         }
         alert(code);
         // let a = setInterval(() => {
