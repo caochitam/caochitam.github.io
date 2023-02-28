@@ -31,9 +31,8 @@ async function getCodeFshare() {
         console.log("GET CODE!");
         let code;
         jQuery.get("https://fshare.ga/get-code-3", (a) => {console.log('code:',a); code = a});
-        let coutDown = 60;
-        for (coutDown; i > 0; i--) {
-            console.log(coutDown)
+        for (let i = 60; i > 0; i--) {
+            console.log(i)
         }
         alert(code);
         // let a = setInterval(() => {
