@@ -62,3 +62,6 @@
     ` );
     dragElement(document.getElementById("controlPanel"));
 })();
+function hideCP(){
+    alert("Hide!")
+}
