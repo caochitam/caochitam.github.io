@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirect Ngẫu Nhiên</title>
+    <script>
+        // Danh sách các URL để chuyển hướng
+        const urls = [
+            "https://example.com",
+            "https://google.com",
+            "https://facebook.com",
+            "https://twitter.com"
+        ];
+
+        // Hàm chọn ngẫu nhiên và chuyển hướng
+        function redirectToRandom() {
+            const randomIndex = Math.floor(Math.random() * urls.length);
+            const randomUrl = urls[randomIndex];
+            window.location.href = randomUrl;
+        }
+
+        // Gọi hàm khi trang được tải
+        window.onload = redirectToRandom;
+    </script>
+</head>
+<body>
+    <p>Nếu bạn không được chuyển hướng, <a href="#" onclick="redirectToRandom()">bấm vào đây</a>.</p>
+</body>
+</html>
