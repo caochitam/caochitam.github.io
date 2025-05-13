@@ -1,0 +1,357 @@
+{
+  "name": "Mo phien chat moi",
+  "nodes": [
+    {
+      "parameters": {
+        "workflowInputs": {
+          "values": [
+            {
+              "name": "url"
+            },
+            {
+              "name": "chrome_port"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -580,
+        130
+      ],
+      "id": "dcd849f5-89cd-4972-9516-294e768a287d",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "url": "=http://127.0.0.1:{{ $json.chrome_port }}/json/version",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -140,
+        130
+      ],
+      "id": "16a5bd07-7b13-4d44-bb55-b678a91bdd8d",
+      "name": "Lấy websocket url",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "amount": 1
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        -360,
+        400
+      ],
+      "id": "0d167f65-80cf-4446-a8ec-5165e3278017",
+      "name": "Wait",
+      "webhookId": "cbcd6297-f5e7-4d83-a063-17f9f69d0321"
+    },
+    {
+      "parameters": {
+        "url": "=http://127.0.0.1:{{ $('Cài đặt').item.json.chrome_port }}/json/version",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -140,
+        340
+      ],
+      "id": "af311ee8-e0da-498c-8b17-d521fbd62643",
+      "name": "Lấy websocket url1",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "af311763-0688-47c0-bb64-f4278c841e9f",
+              "name": "url",
+              "value": "={{ $json.url || \"https://chatgpt.com\" }}",
+              "type": "string"
+            },
+            {
+              "id": "62d8d0b6-61e7-4b6c-9652-f4830ea487ed",
+              "name": "chrome_port",
+              "value": "={{ $json.chrome_port || \"9222\" }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -360,
+        130
+      ],
+      "id": "bc085c03-6f6e-452f-b922-0282d1f24c80",
+      "name": "Cài đặt"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "319bc3c5-1813-44c5-bb88-eb69739deea0",
+              "leftValue": "={{ $json.webSocketDebuggerUrl }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        130
+      ],
+      "id": "bbfb8cdf-dcad-40f0-b0b7-8f035a6b6ee0",
+      "name": "Nếu có ws"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "MUpp2gmg6O21lwWk",
+          "mode": "list",
+          "cachedResultName": "Mở trình duyệt"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        -580,
+        400
+      ],
+      "id": "de09d796-f8a2-4da6-b452-c3ffdf6a141b",
+      "name": "Mở trình duyệt",
+      "executeOnce": true,
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "319bc3c5-1813-44c5-bb88-eb69739deea0",
+              "leftValue": "={{ $json.webSocketDebuggerUrl }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        80,
+        400
+      ],
+      "id": "6044b6a8-5640-4f76-b1a8-19cf64c3c08f",
+      "name": "Nếu có ws1"
+    },
+    {
+      "parameters": {
+        "content": "## Kiểm tra trình duyệt\n**Nếu chưa có trình duyệt** thì khởi động trình duyệt.\n**Nếu đã có trình duyệt** thì tiếp tục.",
+        "height": 640,
+        "width": 900
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -640,
+        -20
+      ],
+      "id": "f75cca26-f78a-4486-82a4-cf45009858c5",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "operation": "runCustomScript",
+        "scriptCode": "=const browser = $page.browser();\n$page.close();\nconst page = (await browser.pages())[0];\nconst client = await page.target().createCDPSession();\nconst { windowId } = await client.send('Browser.getWindowForTarget');\nconst { bounds } = await client.send('Browser.getWindowBounds', { windowId });\nawait page.setViewport({   width: bounds.width-16,   height: bounds.height-100 });\n\nawait page.goto('{{ $('Cài đặt').item.json.url }}'); \nreturn [{}]",
+        "options": {
+          "browserWSEndpoint": "={{ $json.webSocketDebuggerUrl}}"
+        }
+      },
+      "type": "n8n-nodes-puppeteer.puppeteer",
+      "typeVersion": 1,
+      "position": [
+        480,
+        280
+      ],
+      "id": "da89bda6-f571-4c7b-aea2-79f476187159",
+      "name": "Truy cập url"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Cài đặt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lấy websocket url": {
+      "main": [
+        [
+          {
+            "node": "Nếu có ws",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Lấy websocket url1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lấy websocket url1": {
+      "main": [
+        [
+          {
+            "node": "Nếu có ws1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cài đặt": {
+      "main": [
+        [
+          {
+            "node": "Lấy websocket url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nếu có ws": {
+      "main": [
+        [
+          {
+            "node": "Truy cập url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mở trình duyệt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mở trình duyệt": {
+      "main": [
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nếu có ws1": {
+      "main": [
+        [
+          {
+            "node": "Truy cập url",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a7344836-10cd-403f-a627-b38b8b8f42ad",
+  "meta": {
+    "instanceId": "6ba43e98fb8d190128eda2807aa0292e6c67603d885ae92aebeb7cf0033c7b2f"
+  },
+  "id": "5fM1QrECQiXZ9jE4",
+  "tags": [
+    {
+      "createdAt": "2025-05-12T12:59:41.878Z",
+      "updatedAt": "2025-05-12T12:59:41.878Z",
+      "id": "fheckShoK2prJLhu",
+      "name": "Điều khiển trình duyệt"
+    }
+  ]
+}

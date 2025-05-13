@@ -1,0 +1,293 @@
+{
+  "name": "GPT-CHAT",
+  "nodes": [
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -520,
+        -220
+      ],
+      "id": "78ef3509-4324-4a00-af2e-fd641c483310",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "url": "=http://127.0.0.1:{{ $('Cài đặt').item.json.chrome_port }}/json/version",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -80,
+        -220
+      ],
+      "id": "cbd1d60c-a1d8-4543-9f8a-865133147245",
+      "name": "Lấy websocket url1",
+      "alwaysOutputData": true,
+      "retryOnFail": false,
+      "maxTries": 5,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "319bc3c5-1813-44c5-bb88-eb69739deea0",
+              "leftValue": "={{ $json.webSocketDebuggerUrl }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        140,
+        -320
+      ],
+      "id": "4a42339f-d204-4438-8aaf-1b0962352db0",
+      "name": "Nếu có ws1"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "62d8d0b6-61e7-4b6c-9652-f4830ea487ed",
+              "name": "chrome_port",
+              "value": "={{ $json.chrome_port || \"9222\" }}",
+              "type": "string"
+            },
+            {
+              "id": "2c457343-f0d5-4c8f-9e62-9f77c0349c41",
+              "name": "message",
+              "value": "={{ $json.message }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -300,
+        -220
+      ],
+      "id": "519b1745-1d50-4f4c-bb77-f0ec292e2b4e",
+      "name": "Cài đặt"
+    },
+    {
+      "parameters": {
+        "operation": "runCustomScript",
+        "scriptCode": "=// Cài đặt\ninputSelector = \"#prompt-textarea\";\n\n// Lấy trang hiện hành\nconst browser = $page.browser();\n$page.close();\nconst page = (await browser.pages())[0];\n\n// Điều chỉnh cửa sổ\nconst client = await page.target().createCDPSession();\nconst { windowId } = await client.send('Browser.getWindowForTarget');\nconst { bounds } = await client.send('Browser.getWindowBounds', { windowId });\nawait page.setViewport({   width: bounds.width-16,   height: bounds.height-100 });\n\n\n// Đợi input sẵn sàng\nawait page.waitForSelector(inputSelector, { visible: true});\n\n// Xóa hết nội dung cũ\nawait page.click(inputSelector);\nawait page.keyboard.down('Control');\nawait page.keyboard.press('A');\nawait page.keyboard.up('Control');\nawait page.keyboard.press('Backspace');\n\n// Thêm nội dung mới\nawait page.type(inputSelector, '\\u00A0');\nconst inputValue = `\n{{ $('Cài đặt').item.json.message }}\n`;\nawait page.evaluate((value) => {\n  const textarea = document.querySelector('#prompt-textarea');\n  if (textarea) textarea.append(value);\n}, inputValue);\n\n// Xóa dấu khởi đầu\nawait page.keyboard.press('PageUp');\nawait page.keyboard.press('Delete');\nawait page.keyboard.press('Delete');\n\n// Bấm nút gửi\nawait page.waitForSelector('[data-testid=\"send-button\"]', { visible: true });\nawait page.evaluate(() => {\n  document.querySelector('[data-testid=\"send-button\"]')?.click();\n});\nreturn [{}]",
+        "options": {
+          "browserWSEndpoint": "={{ $('Lấy websocket url1').item.json.webSocketDebuggerUrl }}"
+        }
+      },
+      "type": "n8n-nodes-puppeteer.puppeteer",
+      "typeVersion": 1,
+      "position": [
+        680,
+        -180
+      ],
+      "id": "9c4f6670-6136-4371-bbbf-4e8fcb3cf1a7",
+      "name": "Gửi tin nhắn",
+      "retryOnFail": false,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "operation": "runCustomScript",
+        "scriptCode": "=// Lấy trang hiện hành\nconst browser = $page.browser();\n$page.close();\nconst page = (await browser.pages())[0];\n\n// Điều chỉnh cửa sổ\nconst client = await page.target().createCDPSession();\nconst { windowId } = await client.send('Browser.getWindowForTarget');\nconst { bounds } = await client.send('Browser.getWindowBounds', { windowId });\nawait page.setViewport({   width: bounds.width-16,   height: bounds.height-100 });\n\n//==================================================================================//\n\n// Kiểm tra xem stream câu trả lời kết thúc chưa\nwhile (true) {\n  const elements = await page.$$(\"[data-testid='composer-speech-button']\");\n\n  if (elements.length > 0) {\n    break; // Thoát vòng lặp nếu tìm thấy phần tử\n  }\n\n  console.log(\".\"); // Tương đương Logs.AppendText(\".\")\n  await new Promise(resolve => setTimeout(resolve, 1000)); // Đợi 1 giây\n}\n\n// Tìm tất cả phần tử có class \"markdown\"\nconst markdownElements = await page.$$('.markdown');\nlet result = null;if (markdownElements.length > 0) {\n  // Lấy phần tử cuối cùng\n  const lastMarkdownElement = markdownElements[markdownElements.length - 1];\n\n  // Tìm phần tử con <code> bên trong phần tử cuối cùng\n  const codeChild = await lastMarkdownElement.$('code');\n\n  if (codeChild) {\n    // Lấy nội dung text bên trong <code>\n    const codeText = await page.evaluate(el => el.textContent, codeChild);\n    result = codeText;\n  } else {\n    // Nếu không có <code>, lấy text của chính phần tử markdown\n    const markdownText = await page.evaluate(el => el.textContent, lastMarkdownElement);\n    result = markdownText;\n  }\n}\n\n// Trả kết quả\nreturn [{result}];",
+        "options": {
+          "browserWSEndpoint": "={{ $('Lấy websocket url1').item.json.webSocketDebuggerUrl }}"
+        }
+      },
+      "type": "n8n-nodes-puppeteer.puppeteer",
+      "typeVersion": 1,
+      "position": [
+        -480,
+        40
+      ],
+      "id": "1995dce0-5f8c-45ac-8999-e79621c853ea",
+      "name": "Nhận phản hồi"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "5fM1QrECQiXZ9jE4",
+          "mode": "list",
+          "cachedResultName": "Mở phiên chat mới"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "url",
+              "displayName": "url",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            },
+            {
+              "id": "chrome_port",
+              "displayName": "chrome_port",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "canBeUsedToMatch": true,
+              "type": "string"
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        340,
+        -220
+      ],
+      "id": "a834e102-a1bd-4ceb-ad83-5c02ab4226c2",
+      "name": "Mở phiên chat mới"
+    }
+  ],
+  "pinData": {
+    "When Executed by Another Workflow": [
+      {
+        "json": {
+          "message": "hãy viết một đoạn văn xàm dài 200 chữ"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Lấy websocket url1": {
+      "main": [
+        [
+          {
+            "node": "Nếu có ws1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nếu có ws1": {
+      "main": [
+        [
+          {
+            "node": "Gửi tin nhắn",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Mở phiên chat mới",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Cài đặt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cài đặt": {
+      "main": [
+        [
+          {
+            "node": "Lấy websocket url1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gửi tin nhắn": {
+      "main": [
+        [
+          {
+            "node": "Nhận phản hồi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mở phiên chat mới": {
+      "main": [
+        [
+          {
+            "node": "Lấy websocket url1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nhận phản hồi": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "d33d5e73-ef71-4481-ad08-cfd375f69fa1",
+  "meta": {
+    "instanceId": "6ba43e98fb8d190128eda2807aa0292e6c67603d885ae92aebeb7cf0033c7b2f"
+  },
+  "id": "DsQF6GPZgxLsFEtG",
+  "tags": [
+    {
+      "createdAt": "2025-05-13T03:20:20.768Z",
+      "updatedAt": "2025-05-13T03:20:20.768Z",
+      "id": "MFZjMCRen7lj9LdF",
+      "name": "GPT"
+    },
+    {
+      "createdAt": "2025-05-12T12:59:41.878Z",
+      "updatedAt": "2025-05-12T12:59:41.878Z",
+      "id": "fheckShoK2prJLhu",
+      "name": "Điều khiển trình duyệt"
+    }
+  ]
+}

@@ -1,0 +1,164 @@
+{
+  "name": "Mo trinh duyet",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "99656c21-33bb-422a-b06a-c1fbf6bf773d",
+              "name": "chrome_port",
+              "value": "9222",
+              "type": "string"
+            },
+            {
+              "id": "e90f427d-1140-4807-9288-6806d734aa4c",
+              "name": "code_get_page",
+              "value": "const browser = $page.browser(); $page.close(); const page = (await browser.pages())[0]; const client = await page.target().createCDPSession(); const { windowId } = await client.send('Browser.getWindowForTarget'); const { bounds } = await client.send('Browser.getWindowBounds', { windowId }); await page.setViewport({   width: bounds.width-16,   height: bounds.height-100 });",
+              "type": "string"
+            },
+            {
+              "id": "e4bdc71d-c94d-4b47-b396-4d7feb50f728",
+              "name": "default_url",
+              "value": "https://caochitam.github.io",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -100
+      ],
+      "id": "ef877c3d-72c0-4e3e-8333-b51d10c3c442",
+      "name": "Cài đặt"
+    },
+    {
+      "parameters": {
+        "command": "=powershell -Command \"Start-Process 'chrome.exe' -ArgumentList '--user-data-dir=C:\\ChromeProfiles','--disable-infobars','--start-maximized','--remote-debugging-port={{ $json.chrome_port }}'\"\n"
+      },
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        -20,
+        -100
+      ],
+      "id": "aa2a15ce-9202-4046-9c50-010eab0a76ec",
+      "name": "Khởi động trình duyệt"
+    },
+    {
+      "parameters": {
+        "url": "=http://127.0.0.1:{{ $('Cài đặt').item.json.chrome_port }}/json/version",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        200,
+        -100
+      ],
+      "id": "63ffd945-324a-4dc9-b40d-176812af8629",
+      "name": "Lấy websocket url",
+      "alwaysOutputData": false,
+      "retryOnFail": true,
+      "maxTries": 5
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -460,
+        -100
+      ],
+      "id": "6a611121-edba-4481-a303-e1e179bc9fee",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "operation": "runCustomScript",
+        "scriptCode": "={{ $('Cài đặt').item.json.code_get_page }}\nawait page.goto('{{ $('Cài đặt').item.json.default_url }}');\nreturn [bounds];\n// await new Promise(resolve => setTimeout(resolve, 20000));",
+        "options": {
+          "browserWSEndpoint": "={{ $json.webSocketDebuggerUrl }}"
+        }
+      },
+      "type": "n8n-nodes-puppeteer.puppeteer",
+      "typeVersion": 1,
+      "position": [
+        420,
+        -100
+      ],
+      "id": "e4092704-bd9d-4579-b824-282b5e579cb9",
+      "name": "Truy cập url"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Cài đặt": {
+      "main": [
+        [
+          {
+            "node": "Khởi động trình duyệt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Khởi động trình duyệt": {
+      "main": [
+        [
+          {
+            "node": "Lấy websocket url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lấy websocket url": {
+      "main": [
+        [
+          {
+            "node": "Truy cập url",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Cài đặt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f497dc97-7105-40c3-a031-c6ecf89ef9fc",
+  "meta": {
+    "instanceId": "6ba43e98fb8d190128eda2807aa0292e6c67603d885ae92aebeb7cf0033c7b2f"
+  },
+  "id": "MUpp2gmg6O21lwWk",
+  "tags": [
+    {
+      "createdAt": "2025-05-12T12:59:41.878Z",
+      "updatedAt": "2025-05-12T12:59:41.878Z",
+      "id": "fheckShoK2prJLhu",
+      "name": "Điều khiển trình duyệt"
+    }
+  ]
+}

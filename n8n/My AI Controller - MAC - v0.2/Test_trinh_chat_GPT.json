@@ -1,0 +1,128 @@
+{
+  "name": "Test trinh chat GPT",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -440,
+        -20
+      ],
+      "id": "71309f3c-3249-4dd7-b4bd-a9f4b36fd883",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a854e3b4-93ce-4e31-9bba-73b4f7a66c0f",
+              "name": "message",
+              "value": "Hãy viết một đoạn văn xàm dài 100 chữ với phong cách hài hước về chủ đề những khó khăn khi sử dụng n8n phục vụ công việc. Yêu cầu phải hài làm sao để đọc là nhất định phải cười",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -240,
+        -20
+      ],
+      "id": "1c2e3fc8-4906-414d-be91-961f8cb4cac7",
+      "name": "Nhập câu hỏi test thủ công"
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "DsQF6GPZgxLsFEtG",
+          "mode": "list",
+          "cachedResultName": "GPT-CHAT"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": true
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        40,
+        -20
+      ],
+      "id": "c100bbf2-89c0-4528-93e2-41d6f8dfb177",
+      "name": "Gửi câu hỏi và nhận câu trả lời"
+    },
+    {
+      "parameters": {
+        "content": "## Tự động gửi tin nhắn và nhận phản hồi trình chat GPT\n**Ưu điểm:** Không tốn tiền API, có thể dùng miễn phí, Upload file dễ dàng, Sử dụng nhiều tính năng mà API không có\n**Nhược điểm:** Kém ổn định\n**Phù hợp với:**  Phân tích tài liệu lớn, viết bài, tạo ảnh, tạo video...\n",
+        "width": 700
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        -200
+      ],
+      "id": "0350b064-2a11-4408-a218-f9817a0e9ba9",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Nhập câu hỏi test thủ công",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Nhập câu hỏi test thủ công": {
+      "main": [
+        [
+          {
+            "node": "Gửi câu hỏi và nhận câu trả lời",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "b42b6b53-cd54-45c6-9061-2013d84c563e",
+  "meta": {
+    "instanceId": "6ba43e98fb8d190128eda2807aa0292e6c67603d885ae92aebeb7cf0033c7b2f"
+  },
+  "id": "3LIrcbuGiH9gRHDw",
+  "tags": [
+    {
+      "createdAt": "2025-05-13T03:20:20.768Z",
+      "updatedAt": "2025-05-13T03:20:20.768Z",
+      "id": "MFZjMCRen7lj9LdF",
+      "name": "GPT"
+    },
+    {
+      "createdAt": "2025-05-12T12:59:41.878Z",
+      "updatedAt": "2025-05-12T12:59:41.878Z",
+      "id": "fheckShoK2prJLhu",
+      "name": "Điều khiển trình duyệt"
+    }
+  ]
+}
