@@ -5,4 +5,4 @@
 
 ## Yêu cầu
 **n8n-nodes-puppeteer**: https://www.npmjs.com/package/n8n-nodes-puppeteer
-**chmome**: Hệ thống sẽ khởi động chrome bằng cách gọi powershell: Start-Process 'chrome.exe' . Do đó nếu lệnh này ko chạy đc thì cần liên hệ mình để sửa lại
+**chmome**: Hệ thống sẽ khởi động chrome bằng cách gọi powershell: Start-Process 'chrome.exe' . Do đó nếu lệnh này ko chạy đc thì cần liên hệ mình để sửa lại: 0964965320
