@@ -34,7 +34,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        -100,
+        -120,
         60
       ],
       "id": "a4b8e52e-50a7-4df7-8346-b464f83d2b52",
@@ -66,7 +66,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        100,
+        40,
         60
       ],
       "id": "5cb13e64-8b6a-4e41-a98a-cfc6824f5929",
@@ -94,7 +94,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        700,
+        680,
         60
       ],
       "id": "09c696c4-d348-4110-9124-36dc07405b5e",
@@ -126,7 +126,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        460,
+        380,
         60
       ],
       "id": "170db10d-04c9-4695-94f7-455007e9f1d5",
@@ -158,7 +158,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        280,
+        200,
         60
       ],
       "id": "b7cf4d61-ef2f-4c43-8ef2-157d3c2e4a08",
@@ -178,6 +178,20 @@
       ],
       "id": "6382e419-1715-418a-8a00-f1b955fa0920",
       "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "amount": 2
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        540,
+        60
+      ],
+      "id": "6ba14c22-00f8-4a4d-9c33-9730e681fe8a",
+      "name": "Wait",
+      "webhookId": "22543e1d-68f8-4fd8-8c8c-90e992267146"
     }
   ],
   "pinData": {},
@@ -219,7 +233,7 @@
       "main": [
         [
           {
-            "node": "Lấy link ảnh",
+            "node": "Wait",
             "type": "main",
             "index": 0
           }
@@ -236,13 +250,24 @@
           }
         ]
       ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "Lấy link ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "fc73a8fe-c9c4-41ff-bb94-add0879a8821",
+  "versionId": "6a7ed8f2-4fbc-41f3-ace8-7f7a53760e19",
   "meta": {
     "instanceId": "bbee589e36145fda25096ca32e0d4cbd90bd1e1d3a72fb13089d266608defa1d"
   },
