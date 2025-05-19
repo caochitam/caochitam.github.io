@@ -1,0 +1,251 @@
+{
+  "name": "Test Trình chat GPT",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -280,
+        60
+      ],
+      "id": "0dd493c4-a72b-4380-a864-0028aab9094d",
+      "name": "When clicking ‘Test workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "gpt"
+            },
+            {
+              "name": "action",
+              "value": "new_chat"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -100,
+        60
+      ],
+      "id": "a4b8e52e-50a7-4df7-8346-b464f83d2b52",
+      "name": "Tạo phiên chat mới"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "gpt"
+            },
+            {
+              "name": "action",
+              "value": "upload"
+            },
+            {
+              "name": "data",
+              "value": "D:\\DATA\\meo.jpg"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        100,
+        60
+      ],
+      "id": "5cb13e64-8b6a-4e41-a98a-cfc6824f5929",
+      "name": "Upload file"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "gpt"
+            },
+            {
+              "name": "action",
+              "value": "get_img"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        700,
+        60
+      ],
+      "id": "09c696c4-d348-4110-9124-36dc07405b5e",
+      "name": "Lấy link ảnh"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "gpt"
+            },
+            {
+              "name": "action",
+              "value": "ask"
+            },
+            {
+              "name": "data",
+              "value": "hãy tô màu cho con mèo trong hình"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        460,
+        60
+      ],
+      "id": "170db10d-04c9-4695-94f7-455007e9f1d5",
+      "name": "Gửi yêu cầu tạo ảnh"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://localhost:3000",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "target",
+              "value": "gpt"
+            },
+            {
+              "name": "action",
+              "value": "ask"
+            },
+            {
+              "name": "data",
+              "value": "hãy mô tả đối tượng trong ảnh bằng một từ duy nhất"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        280,
+        60
+      ],
+      "id": "b7cf4d61-ef2f-4c43-8ef2-157d3c2e4a08",
+      "name": "Gửi câu hỏi"
+    },
+    {
+      "parameters": {
+        "content": "# Biến Chat GPT free thành API với MAC v2.0 (My AI Controller)\n### Tích hợp dễ dàng với n8n\n**Tính năng:** Gửi tin nhắn, upload hình, nhận tin nhắn, nhận link ảnh",
+        "height": 180,
+        "width": 1120
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        -300,
+        -160
+      ],
+      "id": "6382e419-1715-418a-8a00-f1b955fa0920",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Test workflow’": {
+      "main": [
+        [
+          {
+            "node": "Tạo phiên chat mới",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Tạo phiên chat mới": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        [
+          {
+            "node": "Gửi câu hỏi",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gửi yêu cầu tạo ảnh": {
+      "main": [
+        [
+          {
+            "node": "Lấy link ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Gửi câu hỏi": {
+      "main": [
+        [
+          {
+            "node": "Gửi yêu cầu tạo ảnh",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "fc73a8fe-c9c4-41ff-bb94-add0879a8821",
+  "meta": {
+    "instanceId": "bbee589e36145fda25096ca32e0d4cbd90bd1e1d3a72fb13089d266608defa1d"
+  },
+  "id": "SoGjMjMo6xyAisJB",
+  "tags": []
+}
