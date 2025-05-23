@@ -1,5 +1,6 @@
-*.manifest binary
 *.application binary
-*.config binary
-*.dll binary
+*.manifest binary
 *.exe binary
+*.dll binary
+*.config binary
+*.deploy binary
