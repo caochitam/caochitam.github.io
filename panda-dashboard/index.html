@@ -46,7 +46,9 @@ tailwind.config = {
     position: relative; border-radius: 14px; overflow: hidden;
     box-shadow: 0 30px 60px -20px rgba(15,23,42,0.25), 0 8px 20px -8px rgba(15,23,42,0.10);
     background: #fff; border: 1px solid #E2E8F0;
+    cursor: zoom-in; transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
+  .screen-frame:hover { transform: translateY(-2px); box-shadow: 0 36px 70px -18px rgba(229,57,53,0.28), 0 10px 24px -8px rgba(15,23,42,0.12); }
   .screen-frame::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 26px;
     background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
@@ -447,12 +449,100 @@ tailwind.config = {
   </div>
 </footer>
 
+<!-- ╔═══════════ Lightbox ═══════════ -->
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center" role="dialog" aria-modal="true" aria-label="Xem ảnh phóng to">
+  <div id="lightbox-backdrop" class="absolute inset-0 bg-black/85 backdrop-blur-sm"></div>
+
+  <div class="relative max-w-[95vw] max-h-[92vh] flex flex-col items-center">
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[82vh] rounded-lg shadow-2xl bg-white object-contain" />
+    <div id="lightbox-caption" class="mt-3 text-white/85 text-sm font-medium text-center"></div>
+    <div id="lightbox-counter" class="mt-1 text-white/50 text-xs tabular-nums"></div>
+  </div>
+
+  <!-- Prev -->
+  <button id="lightbox-prev" class="absolute left-3 md:left-6 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/25 text-white text-2xl flex items-center justify-center backdrop-blur transition" aria-label="Ảnh trước">‹</button>
+  <!-- Next -->
+  <button id="lightbox-next" class="absolute right-3 md:right-6 top-1/2 -translate-y-1/2 w-12 h-12 md:w-14 md:h-14 rounded-full bg-white/10 hover:bg-white/25 text-white text-2xl flex items-center justify-center backdrop-blur transition" aria-label="Ảnh sau">›</button>
+  <!-- Close -->
+  <button id="lightbox-close" class="absolute top-3 right-3 md:top-5 md:right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white text-xl flex items-center justify-center backdrop-blur transition" aria-label="Đóng">✕</button>
+</div>
+
 <script>
   // Lazy reveal on scroll
   const io = new IntersectionObserver((entries) => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // ── Lightbox ──
+  (function() {
+    const frames = [...document.querySelectorAll('.screen-frame')].filter(f => f.querySelector('img'));
+    if (!frames.length) return;
+    const images = frames.map(f => {
+      const img = f.querySelector('img');
+      return { src: img.getAttribute('src'), alt: img.getAttribute('alt') || '' };
+    });
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    const lbCap = document.getElementById('lightbox-caption');
+    const lbCounter = document.getElementById('lightbox-counter');
+    const btnPrev = document.getElementById('lightbox-prev');
+    const btnNext = document.getElementById('lightbox-next');
+    const btnClose = document.getElementById('lightbox-close');
+    const backdrop = document.getElementById('lightbox-backdrop');
+    let idx = 0;
+
+    function render() {
+      const it = images[idx];
+      lbImg.src = it.src;
+      lbImg.alt = it.alt;
+      lbCap.textContent = it.alt || '';
+      lbCounter.textContent = `${idx + 1} / ${images.length}`;
+    }
+    function open(i) {
+      idx = ((i % images.length) + images.length) % images.length;
+      render();
+      lb.classList.remove('hidden');
+      lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function close() {
+      lb.classList.add('hidden');
+      lb.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+    function next() { idx = (idx + 1) % images.length; render(); }
+    function prev() { idx = (idx - 1 + images.length) % images.length; render(); }
+
+    frames.forEach((f, i) => {
+      f.addEventListener('click', () => open(i));
+      f.setAttribute('tabindex', '0');
+      f.setAttribute('role', 'button');
+      f.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(i); } });
+    });
+    btnPrev.addEventListener('click', e => { e.stopPropagation(); prev(); });
+    btnNext.addEventListener('click', e => { e.stopPropagation(); next(); });
+    btnClose.addEventListener('click', close);
+    backdrop.addEventListener('click', close);
+
+    document.addEventListener('keydown', e => {
+      if (lb.classList.contains('hidden')) return;
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowLeft') prev();
+      else if (e.key === 'ArrowRight') next();
+    });
+
+    // Swipe trên mobile
+    let touchX = null;
+    lb.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    lb.addEventListener('touchend', e => {
+      if (touchX === null) return;
+      const dx = (e.changedTouches[0].clientX - touchX);
+      if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+      touchX = null;
+    });
+  })();
 </script>
 </body>
 </html>
