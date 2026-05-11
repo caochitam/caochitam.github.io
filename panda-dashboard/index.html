@@ -1,0 +1,417 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>PGC Dashboard — Bộ não vận hành khu game | Panda Game Center</title>
+<meta name="description" content="Phần mềm quản trị khu game tích hợp Dashboard realtime + Phân tích RFM + Marketing tự động + Mini App Zalo. Giải pháp trọn bộ phần cứng và phần mềm cho chủ khu game Việt Nam." />
+<meta property="og:title" content="PGC Dashboard — Bộ não vận hành khu game" />
+<meta property="og:description" content="Dashboard realtime + RFM + Marketing auto + Mini App Zalo. Trọn bộ giải pháp cho khu game." />
+<meta property="og:type" content="website" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      fontFamily: { sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'] },
+      colors: {
+        panda:   { 50:'#FFF1F1', 100:'#FFE0E0', 200:'#FFC4C4', 400:'#F66262', 500:'#E53935', 600:'#C92A26', 700:'#A41E1B', 900:'#5F1110' },
+        ink:     { 900:'#0F172A', 700:'#334155', 500:'#64748B', 400:'#94A3B8', 200:'#E2E8F0', 100:'#F1F5F9' },
+        sun:     { 300:'#FCD34D', 400:'#FBBF24', 500:'#F59E0B' },
+      },
+      boxShadow: {
+        soft: '0 4px 20px -2px rgba(15,23,42,0.08), 0 2px 6px -1px rgba(15,23,42,0.04)',
+        card: '0 18px 48px -16px rgba(229,57,53,0.18), 0 2px 8px -2px rgba(15,23,42,0.06)',
+        screen: '0 30px 60px -20px rgba(15,23,42,0.25), 0 8px 20px -8px rgba(15,23,42,0.10)',
+      },
+    },
+  },
+};
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Be Vietnam Pro', system-ui, sans-serif; }
+  .grad-hero {
+    background:
+      radial-gradient(60% 80% at 80% 10%, rgba(252,211,77,0.20) 0%, transparent 60%),
+      radial-gradient(60% 80% at 10% 90%, rgba(229,57,53,0.18) 0%, transparent 60%),
+      linear-gradient(135deg, #1A0606 0%, #2D0A0A 50%, #5F1110 100%);
+  }
+  .grad-section { background: linear-gradient(180deg, #FFFFFF 0%, #FFF7F7 100%); }
+  .grad-cta { background: linear-gradient(135deg, #E53935 0%, #C92A26 100%); }
+  .screen-frame {
+    position: relative; border-radius: 14px; overflow: hidden;
+    box-shadow: 0 30px 60px -20px rgba(15,23,42,0.25), 0 8px 20px -8px rgba(15,23,42,0.10);
+    background: #fff; border: 1px solid #E2E8F0;
+  }
+  .screen-frame::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 26px;
+    background: linear-gradient(180deg, #F8FAFC 0%, #F1F5F9 100%);
+    border-bottom: 1px solid #E2E8F0; z-index: 2;
+  }
+  .screen-frame::after {
+    content: '⬤  ⬤  ⬤'; position: absolute; top: 6px; left: 10px; z-index: 3;
+    font-size: 7px; letter-spacing: 5px; color: #CBD5E1;
+  }
+  .screen-frame > img { display: block; width: 100%; height: auto; margin-top: 26px; }
+  .feature-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, #FFE0E0, #FFC4C4);
+    color: #A41E1B; font-weight: 800; font-size: 14px;
+  }
+  .pill { display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  .pill-soft { background: rgba(229,57,53,0.10); color: #C92A26; }
+  .check::before { content: '✓'; display: inline-block; width: 18px; height: 18px; line-height: 18px; text-align: center; border-radius: 999px; background: #DCFCE7; color: #16A34A; font-size: 11px; font-weight: 800; margin-right: 8px; }
+  .dot::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 999px; background: #E53935; margin-right: 8px; vertical-align: middle; }
+  .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .reveal.in { opacity: 1; transform: translateY(0); }
+  @media (max-width: 768px) {
+    .screen-frame > img { margin-top: 22px; }
+  }
+</style>
+</head>
+<body class="bg-white text-ink-900 antialiased">
+
+<!-- ╔═══════════ Nav ═══════════ -->
+<header class="sticky top-0 z-40 bg-white/85 backdrop-blur-md border-b border-ink-100">
+  <div class="max-w-6xl mx-auto px-5 py-3 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 font-extrabold text-ink-900">
+      <span class="text-2xl">🐼</span>
+      <span>PGC Dashboard</span>
+    </a>
+    <nav class="hidden md:flex items-center gap-6 text-sm font-medium text-ink-700">
+      <a href="#features" class="hover:text-panda-600">Tính năng</a>
+      <a href="#solution" class="hover:text-panda-600">Giải pháp trọn bộ</a>
+      <a href="#contact" class="hover:text-panda-600">Liên hệ</a>
+    </nav>
+    <a href="#contact" class="px-4 py-2 bg-panda-500 text-white rounded-lg text-sm font-semibold hover:bg-panda-600 transition">Tư vấn miễn phí</a>
+  </div>
+</header>
+
+<!-- ╔═══════════ Hero ═══════════ -->
+<section class="grad-hero text-white relative overflow-hidden">
+  <div class="max-w-6xl mx-auto px-5 py-20 md:py-28 grid lg:grid-cols-2 gap-12 items-center">
+    <div>
+      <span class="pill bg-white/10 text-sun-300 border border-sun-400/20 mb-5">
+        <span>🎯</span> Phần mềm quản trị khu game thế hệ mới
+      </span>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight">
+        Bộ não <span class="text-sun-300">vận hành</span><br/>
+        khu game của bạn.
+      </h1>
+      <p class="mt-6 text-lg text-white/80 leading-relaxed max-w-xl">
+        PGC Dashboard kết nối <b class="text-white">phần cứng máy game</b>, dữ liệu khách hàng và <b class="text-white">Mini App Zalo</b> thành
+        một hệ thống thống nhất. Chủ khu game nắm bắt mọi chỉ số <b class="text-sun-300">realtime</b>, giữ chân khách hàng tự động,
+        và mở rộng tệp người chơi qua kênh số.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href="#features" class="px-6 py-3 bg-white text-panda-700 font-bold rounded-xl hover:bg-sun-300 hover:text-ink-900 transition">Xem tính năng →</a>
+        <a href="#contact" class="px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-xl hover:border-white/60 transition">Đăng ký tư vấn</a>
+      </div>
+      <div class="mt-10 grid grid-cols-3 gap-4 max-w-md">
+        <div><div class="text-3xl font-black text-sun-300">14.708</div><div class="text-xs text-white/60 mt-1">Khách hàng quản lý</div></div>
+        <div><div class="text-3xl font-black text-sun-300">24/7</div><div class="text-xs text-white/60 mt-1">Theo dõi realtime</div></div>
+        <div><div class="text-3xl font-black text-sun-300">10+</div><div class="text-xs text-white/60 mt-1">Module tích hợp</div></div>
+      </div>
+    </div>
+
+    <div class="relative">
+      <div class="screen-frame">
+        <img src="img/dashboard.png" alt="Dashboard tổng quan PGC" loading="eager" />
+      </div>
+      <div class="absolute -bottom-6 -left-6 bg-white text-ink-900 rounded-xl shadow-card p-3 flex items-center gap-3 max-w-[220px] hidden md:flex">
+        <div class="w-10 h-10 rounded-lg bg-panda-50 flex items-center justify-center text-xl">⚡</div>
+        <div>
+          <div class="text-xs text-ink-500">Cập nhật mỗi</div>
+          <div class="font-bold">15 giây</div>
+        </div>
+      </div>
+      <div class="absolute -top-4 -right-4 bg-white text-ink-900 rounded-xl shadow-card p-3 flex items-center gap-3 max-w-[260px] hidden md:flex">
+        <div class="w-10 h-10 rounded-lg bg-green-50 flex items-center justify-center text-xl">📈</div>
+        <div>
+          <div class="text-xs text-ink-500">Doanh thu hôm nay</div>
+          <div class="font-bold tabular-nums">1.340.000 ₫</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔═══════════ Solution overview ═══════════ -->
+<section id="solution" class="grad-section py-20">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="pill pill-soft">Giải pháp trọn bộ</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-black text-ink-900">3 lớp tích hợp · 1 trải nghiệm thống nhất</h2>
+      <p class="mt-4 text-ink-500 leading-relaxed">
+        Khác với phần mềm rời rạc, PGC kết nối từ <b class="text-ink-900">máy game vật lý</b> tới <b class="text-ink-900">smartphone của khách</b>
+        — chủ tiệm chỉ cần một dashboard duy nhất để vận hành toàn bộ.
+      </p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-5">
+      <div class="bg-white rounded-2xl p-6 border border-ink-100 shadow-soft">
+        <div class="w-12 h-12 rounded-xl bg-panda-50 flex items-center justify-center text-2xl mb-4">🕹️</div>
+        <h3 class="font-bold text-lg">Phần cứng khu game</h3>
+        <p class="text-sm text-ink-500 mt-2 leading-relaxed">
+          Máy đổi xu, máy chơi tự động, đầu đọc thẻ thành viên, mán hình LCD bảng xếp hạng tại quầy.
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-panda-200 shadow-card relative">
+        <span class="absolute -top-3 left-6 px-2 py-0.5 bg-panda-500 text-white text-[11px] font-bold rounded">TRUNG TÂM</span>
+        <div class="w-12 h-12 rounded-xl bg-panda-500 flex items-center justify-center text-2xl mb-4">📊</div>
+        <h3 class="font-bold text-lg">Dashboard PGC</h3>
+        <p class="text-sm text-ink-500 mt-2 leading-relaxed">
+          Quản trị tập trung trên trình duyệt. Realtime KPIs, phân khúc khách hàng, marketing tự động,
+          quản lý voucher / kho / nhân sự.
+        </p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-ink-100 shadow-soft">
+        <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-2xl mb-4">📱</div>
+        <h3 class="font-bold text-lg">Mini App Zalo</h3>
+        <p class="text-sm text-ink-500 mt-2 leading-relaxed">
+          Khách tương tác qua Zalo: thẻ thành viên ảo, điểm danh, đổi quà, minigame.
+          Không cần tải app riêng.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔═══════════ Features ═══════════ -->
+<section id="features" class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <span class="pill pill-soft">Tính năng nổi bật</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-black">8 module sẵn dùng cho chủ khu game</h2>
+      <p class="mt-4 text-ink-500 leading-relaxed">
+        Toàn bộ là sản phẩm triển khai thật, đang vận hành tại Panda Game Center.
+        Bạn có thể dùng ngay từ ngày đầu, không cần dự án phát triển dài hạn.
+      </p>
+    </div>
+
+    <!-- 1. Dashboard Tổng quan -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center reveal">
+      <div>
+        <span class="feature-num">01</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Tổng quan kinh doanh — một màn hình</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Doanh thu, lượt khách, số máy đang chơi, hoạt động Mini App hôm nay — tất cả ở trang chủ.
+          Biểu đồ doanh thu 7 ngày và theo từng giờ giúp chủ tiệm biết khung giờ vàng để đẩy khuyến mãi.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">KPIs realtime đồng bộ trực tiếp từ máy game</li>
+          <li class="check">Biểu đồ doanh thu theo ngày, theo giờ</li>
+          <li class="check">Tự nhận diện top máy đang “hot”, top hoạt động khách hàng</li>
+        </ul>
+      </div>
+      <div class="screen-frame order-first lg:order-last"><img src="img/dashboard.png" alt="Tổng quan dashboard" loading="lazy" /></div>
+    </div>
+
+    <!-- 2. Live Realtime -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div class="screen-frame"><img src="img/live.png" alt="Bảng điều khiển thời gian thực" loading="lazy" /></div>
+      <div>
+        <span class="feature-num">02</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Theo dõi khu game theo thời gian thực</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Bảng điều khiển 24/7 ghi nhận từng lượt nạp xu, từng máy đang chơi, từng hoạt động khách.
+          Bộ phận thu ngân, kỹ thuật, marketing đều thấy chung một sự thật.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Số khách đang chơi cập nhật giây-bằng-giây</li>
+          <li class="check">Top máy hot — biết máy nào kẹt, máy nào sinh lời</li>
+          <li class="check">Activity stream — soi từng hành động của khách trong cửa hàng</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 3. RFM Segments -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div>
+        <span class="feature-num">03</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Phân loại khách hàng theo RFM</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Mỗi thành viên được tự động xếp vào nhóm <b>VIP / Trung thành / Tiềm năng / Mới / Sắp rời bỏ / Rời bỏ</b>
+          dựa trên độ gần đây (Recency), tần suất (Frequency) và giá trị chi tiêu (Monetary).
+          Marketing biết chính xác cần chăm ai, kích hoạt ai, giành lại ai.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Tự cập nhật phân khúc khi data thay đổi</li>
+          <li class="check">Lọc — tìm kiếm — xuất Excel danh sách từng nhóm</li>
+          <li class="check">Pie chart phân bố số khách + phân bố doanh thu theo nhóm</li>
+        </ul>
+      </div>
+      <div class="screen-frame order-first lg:order-last"><img src="img/segments.png" alt="Phân loại khách hàng RFM" loading="lazy" /></div>
+    </div>
+
+    <!-- 4. Churn alert -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div class="screen-frame"><img src="img/churn.png" alt="Cảnh báo khách sắp rời bỏ" loading="lazy" /></div>
+      <div>
+        <span class="feature-num">04</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Cảnh báo khách sắp rời bỏ</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Khách không ghé trong 14 / 21 / 30 ngày sẽ được hiển thị 3 cấp độ cảnh báo:
+          <b class="text-sun-500">warning</b>, <b class="text-orange-600">danger</b>, <b class="text-red-600">critical</b>.
+          Một cú bấm để gửi tin mời quay lại — không để khách quên bạn.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Tự tính RFM, lọc khách rủi ro theo nhiều ngưỡng</li>
+          <li class="check">Hiển thị số ngày vắng + số xu/phiếu còn tồn của khách</li>
+          <li class="check">Gửi Zalo/SMS gọi quay lại ngay trong bảng</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 5. Marketing automation -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div>
+        <span class="feature-num">05</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Marketing tự động — chạy nền 24/7</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Mỗi sáng hệ thống tự quét: khách nào sinh nhật hôm nay, khách nào sắp đạt mốc chi tiêu, ai mới giới thiệu bạn,
+          ai nằm top bảng xếp hạng tuần. Cron job gửi quà / lời chúc / mã giảm giá tự động — bạn chỉ chỉnh kịch bản 1 lần.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Sinh nhật tự động: gửi voucher đặc biệt + lời chúc</li>
+          <li class="check">Milestones: tự thưởng khi khách đạt mốc nạp xu cộng dồn</li>
+          <li class="check">Referral: thưởng cả người giới thiệu và người được giới thiệu</li>
+          <li class="check">Leaderboard hàng tuần: top spender, top ticket, top đổi quà</li>
+        </ul>
+      </div>
+      <div class="grid grid-cols-2 gap-4 order-first lg:order-last">
+        <div class="screen-frame"><img src="img/birthday.png" alt="Sinh nhật tự động" loading="lazy" /></div>
+        <div class="screen-frame"><img src="img/milestones.png" alt="Milestones" loading="lazy" /></div>
+        <div class="screen-frame col-span-2"><img src="img/leaderboard.png" alt="Bảng xếp hạng" loading="lazy" /></div>
+      </div>
+    </div>
+
+    <!-- 6. Mini App Zalo -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div class="screen-frame"><img src="img/miniapp.png" alt="Quản lý Mini App Zalo" loading="lazy" /></div>
+      <div>
+        <span class="feature-num">06</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Mini App Zalo — kênh tương tác chính</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Khách không cần tải app, chỉ mở Zalo. CMS Mini App quản lý banner, ưu đãi hot, hạng thẻ, giới thiệu máy game, cửa hàng đổi quà
+          — tất cả chỉnh từ dashboard, push live ngay.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Banner slideshow + ưu đãi hot — cập nhật tức thì</li>
+          <li class="check">Quản lý hạng thẻ thành viên + máy game giới thiệu</li>
+          <li class="check">Phân tích traffic: page view, thời gian dùng, hành động phổ biến</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 7. Minigame engine -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div>
+        <span class="feature-num">07</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Minigame engine — gắn thêm trò chơi dễ như cài app</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Mỗi minigame là một gói zip độc lập có thể upload, bật/tắt, chỉnh tham số (tỉ lệ thắng, payout, jackpot).
+          Đua Gấu là minigame mặc định. Thêm trò mới = upload zip, không cần đụng code backend.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Mỗi minigame có data DB riêng — không ảnh hưởng hệ thống chính</li>
+          <li class="check">Kho tích lũy NL realtime, admin chỉnh được</li>
+          <li class="check">Lưu trữ bản cũ + tải backup zip an toàn</li>
+        </ul>
+      </div>
+      <div class="screen-frame order-first lg:order-last"><img src="img/minigames.png" alt="Minigame Mini App engine" loading="lazy" /></div>
+    </div>
+
+    <!-- 8. Reports + Notifications -->
+    <div class="grid lg:grid-cols-2 gap-12 items-center mt-20 reveal">
+      <div class="grid grid-cols-1 gap-4">
+        <div class="screen-frame"><img src="img/analytics.png" alt="Phân tích dữ liệu giao dịch" loading="lazy" /></div>
+        <div class="screen-frame"><img src="img/notifications.png" alt="Nhật ký thông báo" loading="lazy" /></div>
+      </div>
+      <div>
+        <span class="feature-num">08</span>
+        <h3 class="mt-4 text-2xl md:text-3xl font-black">Báo cáo dữ liệu + Multi-channel notification</h3>
+        <p class="mt-4 text-ink-500 leading-relaxed">
+          Phân tích doanh thu theo chương trình khuyến mãi, theo khung giờ, theo máy game.
+          Mọi tin nhắn gửi khách (Zalo ZNS, OA, SMS, push, banner LCD) đều có nhật ký để rà soát.
+        </p>
+        <ul class="mt-5 space-y-2 text-sm text-ink-700">
+          <li class="check">Phân tích top KM hiệu quả nhất</li>
+          <li class="check">Đa kênh thông báo: Zalo ZBS, OA, SMS, push, LCD tại quầy</li>
+          <li class="check">Xuất Excel mọi báo cáo / log để gửi đối tác</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔═══════════ Why us ═══════════ -->
+<section class="grad-section py-20">
+  <div class="max-w-6xl mx-auto px-5">
+    <div class="text-center max-w-3xl mx-auto">
+      <span class="pill pill-soft">Vì sao chọn PGC</span>
+      <h2 class="mt-4 text-3xl md:text-4xl font-black">Đã chạy thật, đang vận hành thật</h2>
+      <p class="mt-4 text-ink-500">Không phải demo, không phải prototype.</p>
+    </div>
+    <div class="mt-12 grid md:grid-cols-3 gap-5">
+      <div class="bg-white rounded-2xl p-6 border border-ink-100">
+        <div class="text-3xl">🏃</div>
+        <div class="mt-3 font-bold text-lg">Triển khai trong 1 tuần</div>
+        <p class="text-sm text-ink-500 mt-2">Phần mềm sẵn sàng. Tích hợp dữ liệu khu game + setup Mini App + train nhân viên trong 5-7 ngày.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-ink-100">
+        <div class="text-3xl">🔒</div>
+        <div class="mt-3 font-bold text-lg">Dữ liệu thuộc về chủ tiệm</div>
+        <p class="text-sm text-ink-500 mt-2">Database riêng, không chia sẻ. Phân quyền owner / manager / staff rõ ràng. Xuất Excel mọi lúc.</p>
+      </div>
+      <div class="bg-white rounded-2xl p-6 border border-ink-100">
+        <div class="text-3xl">🛠️</div>
+        <div class="mt-3 font-bold text-lg">Tuỳ biến theo chuỗi</div>
+        <p class="text-sm text-ink-500 mt-2">Hỗ trợ multi-branch, theme riêng từng khu, customize logo, banner, kịch bản marketing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ╔═══════════ CTA ═══════════ -->
+<section id="contact" class="grad-cta text-white py-20">
+  <div class="max-w-4xl mx-auto px-5 text-center">
+    <h2 class="text-3xl md:text-4xl font-black">Sẵn sàng biến khu game thành <span class="text-sun-300">trung tâm dữ liệu</span>?</h2>
+    <p class="mt-4 text-lg text-white/85 max-w-2xl mx-auto">
+      Để lại liên hệ, đội ngũ PGC sẽ demo trực tiếp dashboard đang chạy thật + báo giá theo quy mô khu game của bạn.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-4 justify-center">
+      <a href="https://zalo.me/0828282880" target="_blank" rel="noopener" class="px-6 py-3 bg-white text-panda-700 font-bold rounded-xl hover:bg-sun-300 transition">💬 Chat Zalo OA</a>
+      <a href="tel:+84828282880" class="px-6 py-3 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 transition">📞 0828 282 880</a>
+      <a href="mailto:caochitam@gmail.com" class="px-6 py-3 border-2 border-white/30 text-white font-bold rounded-xl hover:border-white/60 transition">✉️ Gửi email</a>
+    </div>
+  </div>
+</section>
+
+<!-- ╔═══════════ Footer ═══════════ -->
+<footer class="bg-ink-900 text-white/70 py-10">
+  <div class="max-w-6xl mx-auto px-5 flex flex-col md:flex-row md:items-center justify-between gap-4">
+    <div class="flex items-center gap-2 text-white font-bold">
+      <span class="text-xl">🐼</span> Panda Game Center Smart Card
+    </div>
+    <div class="text-sm">
+      © 2026 PGC Dashboard ·
+      <a href="https://pandagamecenter.com" class="hover:text-sun-300">pandagamecenter.com</a> ·
+      <a href="https://dash.pandagamecenter.com" class="hover:text-sun-300">dash.pandagamecenter.com</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Lazy reveal on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
