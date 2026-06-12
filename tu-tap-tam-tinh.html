@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hướng dẫn tu tập tâm tính — ngộ chân đạo giữa đời thường</title>
+<meta name="description" content="Bộ hướng dẫn tu tập tâm tính hướng đạo vũ trụ: tâm tĩnh mà vẫn sống, làm việc khí thế giữa đời thường. Thuận tự nhiên, không cưỡng cầu.">
+<style>
+  :root {
+    --bg: #faf6ef;
+    --paper: #fffdf8;
+    --ink: #2e2a24;
+    --muted: #7a7165;
+    --accent: #8a6d3b;
+    --accent-soft: #c9b187;
+    --line: #e6dccb;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Noto Serif", "Times New Roman", Georgia, serif;
+    font-size: 18px;
+    line-height: 1.75;
+  }
+  .wrap {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 48px 20px 80px;
+  }
+  header.hero {
+    text-align: center;
+    padding: 36px 16px 28px;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 36px;
+  }
+  header.hero h1 {
+    font-size: 1.9em;
+    font-weight: 600;
+    margin: 0 0 18px;
+    line-height: 1.35;
+    color: #4a3b22;
+  }
+  header.hero .motto {
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.95em;
+  }
+  h2 {
+    font-size: 1.35em;
+    color: #4a3b22;
+    margin: 56px 0 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid var(--accent-soft);
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 1.08em;
+    color: var(--accent);
+    margin: 32px 0 10px;
+    font-weight: 600;
+  }
+  p { margin: 0 0 16px; }
+  ul, ol { padding-left: 26px; margin: 0 0 16px; }
+  li { margin-bottom: 10px; }
+  strong { color: #3d3122; }
+  em { color: #55483a; }
+  blockquote {
+    margin: 28px 0;
+    padding: 18px 24px;
+    background: var(--paper);
+    border-left: 4px solid var(--accent-soft);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: #5a4d3a;
+  }
+  blockquote p { margin: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0 28px;
+    font-size: 0.93em;
+    background: var(--paper);
+  }
+  th, td {
+    border: 1px solid var(--line);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #f3ecdd; color: #4a3b22; }
+  nav.toc {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 20px 26px;
+    margin-bottom: 12px;
+    font-size: 0.95em;
+  }
+  nav.toc strong { display: block; margin-bottom: 8px; color: var(--accent); }
+  nav.toc ol { margin: 0; padding-left: 22px; }
+  nav.toc li { margin-bottom: 4px; }
+  nav.toc a { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--accent-soft); }
+  nav.toc a:hover { color: var(--accent); }
+  .final {
+    margin-top: 56px;
+    padding: 28px;
+    background: linear-gradient(135deg, #f6efe0, #fffdf8);
+    border: 1px solid var(--accent-soft);
+    border-radius: 12px;
+    text-align: center;
+    font-size: 1.08em;
+    font-style: italic;
+    color: #4a3b22;
+  }
+  footer {
+    margin-top: 48px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85em;
+    border-top: 1px solid var(--line);
+    padding-top: 20px;
+  }
+  @media (max-width: 600px) {
+    body { font-size: 16.5px; }
+    .wrap { padding: 28px 14px 60px; }
+    header.hero h1 { font-size: 1.5em; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <h1>Hướng dẫn tu tập tâm tính<br>— ngộ chân đạo giữa đời thường —</h1>
+  <p class="motto">Tâm tĩnh như nước lặng, thân hành như người thường.<br>
+  Đạo không ở trên núi, không ở trong chùa — Đạo ở chỗ mình đang đứng.</p>
+</header>
+
+<nav class="toc">
+  <strong>Mục lục</strong>
+  <ol type="I">
+    <li><a href="#nen-tang">Nền tảng nhận thức: Đạo vũ trụ là gì</a></li>
+    <li><a href="#tam-phap">Tâm pháp cốt lõi</a></li>
+    <li><a href="#hang-ngay">Thực hành hàng ngày</a></li>
+    <li><a href="#an-uong">Ăn uống và thân thể</a></li>
+    <li><a href="#giua-doi">Sống giữa người thường</a></li>
+    <li><a href="#ngo-dao">Ngộ chân đạo — diễn ra thế nào</a></li>
+    <li><a href="#cai-bay">Những cái bẫy cần tránh</a></li>
+    <li><a href="#lo-trinh">Lộ trình gợi ý</a></li>
+    <li><a href="#de-dai">Đối trị điểm yếu: quá dễ dãi</a></li>
+    <li><a href="#phac-do">Phác đồ riêng 30 ngày</a></li>
+  </ol>
+</nav>
+
+<h2 id="nen-tang">I. Nền tảng nhận thức: Đạo vũ trụ là gì</h2>
+<ol>
+  <li><strong>Đạo là quy luật vận hành của vũ trụ</strong>, không phải tài sản của tôn giáo nào. Trời đất vận hành, bốn mùa luân chuyển, vạn vật sinh diệt — tất cả theo một trật tự tự nhiên. Tu là <strong>thuận theo trật tự đó</strong>, không phải thờ phụng một hình tượng.</li>
+  <li><strong>Đặc tính của Đạo có thể quan sát được:</strong> vũ trụ cho mà không đòi (mặt trời chiếu sáng không tính công), dung chứa mà không phân biệt (đất nâng cả hoa lẫn cỏ dại), vận hành mà không khoe (nước chảy về chỗ thấp mà thắng tất cả). Tu tâm tính tức là <strong>làm cho tâm mình ngày càng giống đặc tính ấy</strong>: chân thật, bao dung, không tranh.</li>
+  <li><strong>Không cưỡng cầu là nguyên tắc gốc.</strong> Cưỡng cầu — ép mình, ép người, ép kết quả — là đi ngược tự nhiên. Cái gì đến từ ép buộc đều không bền. Mọi tiến bộ thật sự trong tu tập đều đến từ <strong>hiểu rồi tự nguyện làm</strong>, không phải từ giới luật sợ hãi.</li>
+</ol>
+
+<h2 id="tam-phap">II. Tâm pháp cốt lõi (phần quan trọng nhất)</h2>
+
+<h3>1. Hướng nội — gặp việc thì tìm ở tâm mình trước</h3>
+<p>Đây là ranh giới giữa người tu và người thường. Người thường gặp mâu thuẫn thì tìm lỗi người khác; người tu <strong>trước tiên nhìn lại tâm mình</strong>:</p>
+<ul>
+  <li>Mình đang khó chịu vì điều gì? Vì danh bị chạm? Vì lợi bị mất? Vì cái tôi bị xem thường?</li>
+  <li>Không phải lúc nào mình cũng sai về <strong>sự việc</strong> — nhưng cái <strong>động tâm</strong> kia luôn là của mình, và đó mới là thứ cần tu.</li>
+</ul>
+
+<h3>2. Buông chấp trước, không buông trách nhiệm</h3>
+<ul>
+  <li><strong>Chấp trước</strong> = dính mắc vào kết quả, vào hình tượng bản thân, vào việc "phải như thế này mới được".</li>
+  <li>Buông chấp <strong>không phải</strong> là buông bỏ công việc, gia đình, nỗ lực. Là: <strong>làm hết sức, nhưng tâm không bị kết quả trói</strong>. Thành công không kiêu, thất bại không sụp. Đây chính là "vô vi" — không phải không làm, mà là <strong>làm thuận tự nhiên, không tranh giành cưỡng đoạt</strong>.</li>
+</ul>
+
+<h3>3. Ba cửa ải lớn: Danh — Lợi — Tình</h3>
+<ul>
+  <li><strong>Danh:</strong> muốn được khen, sợ bị chê, thích hơn người. Nhận diện: khi nào mình làm việc vì muốn được nhìn thấy, đó là danh đang điều khiển.</li>
+  <li><strong>Lợi:</strong> không phải kiếm tiền là sai — nuôi thân nuôi nhà là chính đáng. Sai là khi <strong>vì lợi mà mất chân thật</strong>, hoặc tâm bất an vì được mất.</li>
+  <li><strong>Tình:</strong> yêu ghét theo cảm xúc — thương ai thì bênh, ghét ai thì hại. Tu là chuyển <strong>tình</strong> (thiên vị, dính mắc) dần thành <strong>từ bi</strong> (thiện với tất cả, kể cả người mình không ưa) — chuyển từ từ, không ép.</li>
+</ul>
+
+<h3>4. Nhẫn — nhưng là nhẫn có trí tuệ</h3>
+<p>Nhẫn không phải nuốt giận vào trong (đó là đè nén, sẽ sinh bệnh). Nhẫn thật là: <strong>thấy rõ cơn giận nổi lên, không hành động theo nó, rồi để nó tự tan</strong>. Cơn giận nào cũng tự tan nếu mình không tiếp nhiên liệu cho nó bằng suy nghĩ lặp đi lặp lại.</p>
+
+<h3>5. Chân thật</h3>
+<p>Nói thật, làm thật, không lừa mình lừa người. Đây là đức tính dễ kiểm chứng nhất và là nền của mọi thứ khác — tâm gian dối thì ngồi thiền nghìn giờ cũng vô ích.</p>
+
+<h2 id="hang-ngay">III. Thực hành hàng ngày</h2>
+
+<h3>Buổi sáng — 10–20 phút tĩnh</h3>
+<ul>
+  <li>Ngồi thẳng lưng, thả lỏng, mắt khép hờ. Chỉ <strong>quan sát hơi thở</strong> vào ra tự nhiên, không điều khiển.</li>
+  <li>Niệm khởi lên — kệ nó, biết nó có mặt, quay về hơi thở. <strong>Không đánh nhau với suy nghĩ</strong> (đánh nhau là cưỡng cầu). Tâm tĩnh không phải là không có niệm, mà là <strong>niệm đến rồi đi, mình không chạy theo</strong>.</li>
+  <li>Không cần tư thế kiết già nếu thân chưa quen. Ngồi ghế cũng được. Đều đặn quan trọng hơn hình thức.</li>
+</ul>
+
+<h3>Trong ngày — tu trong công việc</h3>
+<p>Đây là pháp môn chính, ngồi thiền chỉ là phụ trợ:</p>
+<ul>
+  <li><strong>Làm gì biết nấy:</strong> ăn biết đang ăn, gõ phím biết đang gõ, nghe người nói thì thật sự nghe. Mỗi lần phát hiện tâm trôi đi — kéo về. Đó chính là một lần tu.</li>
+  <li><strong>Lấy va chạm làm thầy:</strong> bị phê bình, bị hiểu lầm, kẹt xe, việc hỏng — mỗi lần động tâm là một lần được "kiểm tra bài". Không có va chạm thì không biết tâm tu đến đâu. Vì vậy <strong>sống giữa đời thường lại là môi trường tu tốt nhất</strong>, hơn cả ẩn cư.</li>
+  <li><strong>Làm việc khí thế:</strong> người tu chân chính làm việc <strong>tốt hơn</strong> người thường — vì tâm tĩnh thì trí sáng, không hao năng lượng vào lo lắng, oán trách, tính hơn thua. Khí thế đến từ tâm không vướng, không phải từ căng thẳng.</li>
+</ul>
+
+<h3>Buổi tối — 5 phút xét tâm</h3>
+<p>Trước khi ngủ, hỏi ba câu:</p>
+<ol>
+  <li>Hôm nay tâm mình động mạnh nhất lúc nào? Vì danh, lợi, hay tình?</li>
+  <li>Mình có chỗ nào không chân thật không?</li>
+  <li>Có việc gì mình cưỡng cầu — ép mình, ép người, ép kết quả?</li>
+</ol>
+<p>Chỉ <strong>nhìn nhận</strong>, không tự trách (tự trách cũng là một dạng động tâm). Thấy được là đã tiến bộ.</p>
+
+<h2 id="an-uong">IV. Ăn uống và thân thể — thuận tự nhiên, không cưỡng cầu</h2>
+<ul>
+  <li><strong>Mỗi loài có chế độ ăn của loài đó</strong> — con người là loài ăn tạp, đó là tự nhiên. Ăn chay là tốt nếu thân hợp và tâm tự nguyện; <strong>ăn chay vì ép buộc, vì sợ tội, vì muốn tỏ ra thanh cao — thì cái tâm cưỡng cầu đó còn hại hơn miếng thịt</strong>.</li>
+  <li>Nguyên tắc thay cho giới luật:
+    <ul>
+      <li><strong>Ăn để nuôi thân, không ăn để thỏa dục</strong> — ăn vừa đủ, biết dừng, không nghiện ngập.</li>
+      <li><strong>Không sát sinh vô cớ</strong> — không giết vì vui, không tàn nhẫn, biết ơn nguồn thức ăn. Nhưng không cực đoan đến mức tự hành hạ mình hay gây khó cho gia đình.</li>
+      <li><strong>Tâm khi ăn quan trọng hơn món ăn:</strong> ăn mặn với tâm biết ơn, thanh thản — hơn ăn chay với tâm kiêu ngạo, phán xét người ăn mặn.</li>
+    </ul>
+  </li>
+  <li>Thân là thuyền chở đạo: ngủ đủ, vận động đều, không để thân bệ rạc rồi đổ cho "trọng tâm khinh thân". Thân khỏe thì tâm mới dễ tĩnh.</li>
+</ul>
+
+<h2 id="giua-doi">V. Sống giữa người thường</h2>
+<ul>
+  <li><strong>Không lập dị.</strong> Người tu thật không cần ai biết mình tu. Vẫn cà phê với bạn, vẫn đùa vui, vẫn làm tròn vai chồng/vợ/cha/con/nhân viên/chủ. Khác biệt nằm ở <strong>bên trong</strong>: ít oán hơn, ít tranh hơn, thật hơn, định hơn.</li>
+  <li><strong>Không truyền giáo, không tranh luận đạo lý.</strong> Ai hỏi thì chia sẻ, không hỏi thì im. Đạo lý nói ra khi người chưa muốn nghe chỉ sinh phản cảm. Sống tốt là cách "giảng" duy nhất đáng tin.</li>
+  <li><strong>Không khoe cảnh giới.</strong> Cảm thấy mình "cao" hơn người khác — đó chính là dấu hiệu đang tụt. Người ngộ đạo thật càng ngày càng thấy mình bình thường.</li>
+  <li>Đây chính là "<strong>đại ẩn ẩn ư thị</strong>" — bậc ẩn sĩ lớn ẩn giữa chợ đời. Núi sâu dễ tĩnh nhưng tĩnh đó mong manh; tĩnh giữa chợ mới là tĩnh thật.</li>
+</ul>
+
+<h2 id="ngo-dao">VI. Ngộ chân đạo — diễn ra thế nào</h2>
+<ul>
+  <li><strong>Ngộ không phải một khoảnh khắc sét đánh</strong> (dù có thể có những lúc bừng sáng). Ngộ chân thật là <strong>tích lũy</strong>: mỗi lần buông được một chấp trước, tầm nhìn rộng ra một chút; đến một lúc nhìn lại, thấy chuyện từng làm mình mất ngủ nay nhẹ như không — đó là đã ngộ thêm một tầng.</li>
+  <li><strong>Đừng truy cầu cảm giác lạ</strong> (ánh sáng, năng lượng, "khai mở"...). Truy cầu thể nghiệm chính là chấp trước mới, và là cửa dẫn vào ảo tưởng. Có thì xem như mây bay qua, không có cũng chẳng thiếu gì.</li>
+  <li><strong>Thước đo duy nhất đáng tin:</strong> tâm tính trong đời thực.
+    <ul>
+      <li>Gặp việc trái ý — còn bùng nổ không, hay tan nhanh hơn trước?</li>
+      <li>Bị xúc phạm — bao lâu thì buông được?</li>
+      <li>Quyết định lớn — còn bị danh lợi kéo lệch không?</li>
+      <li>Người quanh mình — họ thấy dễ chịu hơn khi ở gần mình không?</li>
+    </ul>
+  </li>
+  <li>Tiến rồi lùi là bình thường. Tu như chèo thuyền ngược dòng — có hôm lùi, miễn tổng thể đi lên là được. <strong>Không cưỡng cầu tiến độ</strong> với cả chính việc tu.</li>
+</ul>
+
+<h2 id="cai-bay">VII. Những cái bẫy cần tránh</h2>
+<table>
+  <tr><th>Bẫy</th><th>Biểu hiện</th><th>Đối trị</th></tr>
+  <tr><td>Cuồng tín</td><td>Tin mù quáng một thầy/một pháp, sợ hãi giới luật</td><td>Mọi pháp đều phải kiểm chứng bằng lý trí và đời sống</td></tr>
+  <tr><td>Tu hình thức</td><td>Chăm nghi lễ, ngồi thiền nhiều mà tâm tính không đổi</td><td>Lấy tâm tính làm gốc, hình thức làm phụ</td></tr>
+  <tr><td>Trốn đời</td><td>Lấy "buông bỏ" làm cớ bỏ bê trách nhiệm</td><td>Buông chấp trước, không buông bổn phận</td></tr>
+  <tr><td>Kiêu ngạo tâm linh</td><td>Thấy mình cao hơn người "chưa tu"</td><td>Càng tu càng khiêm, thấy ai cũng là thầy mình</td></tr>
+  <tr><td>Cưỡng cầu</td><td>Ép mình khổ hạnh, ép tiến độ, ép cảm giác tĩnh</td><td>Thuận tự nhiên, đều đặn hơn cường độ</td></tr>
+  <tr><td>Truy cầu thần thông</td><td>Mê tín hiện tượng lạ, truy cầu thể nghiệm</td><td>Tâm tính là thước đo duy nhất</td></tr>
+</table>
+
+<h2 id="lo-trinh">VIII. Lộ trình gợi ý</h2>
+<ul>
+  <li><strong>Tháng 1–3:</strong> Lập nền. Sáng tĩnh tọa 10 phút, tối xét tâm 5 phút, ngày tập "làm gì biết nấy". Mục tiêu duy nhất: <strong>đều đặn</strong>, không cần "kết quả".</li>
+  <li><strong>Tháng 4–12:</strong> Tu trong va chạm. Bắt đầu nhận diện được danh–lợi–tình ngay lúc nó khởi (không phải sau khi đã nổi nóng xong). Tăng tĩnh tọa lên 20–30 phút nếu tự nhiên muốn.</li>
+  <li><strong>Năm thứ 2 trở đi:</strong> Tâm tĩnh dần thành nền mặc định thay vì thứ phải cố giữ. Đọc thêm kinh điển gốc để đối chiếu trải nghiệm — đọc <strong>sau khi</strong> đã có trải nghiệm thì mới hiểu thật: <em>Đạo Đức Kinh</em> (Lão Tử), <em>Nam Hoa Kinh</em> (Trang Tử), kinh Tứ Niệm Xứ, <em>Luận Ngữ</em>. Đọc để soi mình, không phải để tích lũy kiến thức nói chuyện.</li>
+</ul>
+
+<h2 id="de-dai">IX. Đối trị điểm yếu: quá dễ dãi</h2>
+<p>Dễ dãi thường bị nhầm là hiền lành, bao dung — nhưng chúng khác nhau ở gốc rễ:</p>
+<ul>
+  <li><strong>Bao dung</strong> là <em>lựa chọn</em> từ vị thế có sức mạnh: mình thấy rõ, có thể từ chối, nhưng chọn tha thứ hoặc nhường — tâm thanh thản sau đó.</li>
+  <li><strong>Dễ dãi</strong> là <em>né tránh</em> từ vị thế yếu: ngại va chạm, sợ mất lòng, lười đối đầu — và thường <strong>ấm ức hoặc hối hận sau đó</strong>. Cái ấm ức đó chính là bằng chứng: đó không phải buông bỏ, đó là đè nén.</li>
+</ul>
+<p>Theo đạo lý: <strong>nước mềm nhưng luôn có hướng chảy</strong>. Mềm mà vô hướng là vũng nước tù; mềm mà có hướng thì xuyên đá. Từ bi phải đi cùng uy nghiêm — thiện với người nhưng <strong>giữ nguyên tắc như giữ mạng</strong>. Đây không hề mâu thuẫn với "không tranh": không tranh là không tranh danh lợi hơn thua; còn giữ nguyên tắc, giữ lời cam kết, đòi hỏi đúng cái mình xứng đáng — đó là <strong>bổn phận</strong>, bỏ nó mới là trái đạo.</p>
+
+<h3>Nhận diện gốc rễ của dễ dãi (xét xem mình thuộc loại nào)</h3>
+<ol>
+  <li><strong>Sợ mất lòng</strong> — muốn được yêu mến → thực chất là một dạng <em>danh</em> (chấp vào hình tượng "người tốt, dễ chịu").</li>
+  <li><strong>Ngại phiền phức</strong> — thà chịu thiệt cho xong → thực chất là <em>lười tâm</em>, trốn va chạm tức là trốn tu.</li>
+  <li><strong>Thương người sai chỗ</strong> — mềm lòng trước lời nài nỉ → <em>tình</em> chưa chuyển thành từ bi có trí tuệ. Giúp người mà hại mình hoặc nuôi thói xấu của họ thì không phải thiện.</li>
+  <li><strong>Không rõ nguyên tắc</strong> — chưa từng định nghĩa cái gì là bất khả nhượng → gió chiều nào theo chiều đó.</li>
+</ol>
+
+<h3>Pháp luyện hàng ngày</h3>
+<ul>
+  <li><strong>Viết ra 3–5 nguyên tắc bất di bất dịch</strong> (ví dụ: không nhận việc quá tải khi chưa xong việc đã hứa; không cho vay quá X; không hạ giá trị công sức mình). Nguyên tắc viết ra rồi thì lúc bị nài ép không cần suy nghĩ — chỉ cần chiếu theo. Dễ dãi sống nhờ sự mơ hồ; nguyên tắc rõ ràng giết sự mơ hồ.</li>
+  <li><strong>Luật trì hoãn 24 giờ:</strong> với mọi lời nhờ vả/đề nghị ngoài kế hoạch, câu trả lời mặc định là <em>"Để tôi xem lại, mai trả lời."</em> Dễ dãi xảy ra trong 3 giây đầu — kéo dài 3 giây đó thành 1 ngày thì lý trí kịp lên tiếng.</li>
+  <li><strong>Tập nói "không" từ việc nhỏ:</strong> từ chối một cuộc hẹn không muốn đi, trả lại món hàng lỗi, nhắc người trả nợ đúng hẹn. Nói "không" là cơ bắp — teo vì không dùng, mạnh nhờ tập đều. Nói ngắn, không xin lỗi dài dòng, không bịa lý do: <em>"Việc này tôi không nhận được."</em> Chấm hết.</li>
+  <li><strong>Nghiêm với mình trước:</strong> dễ dãi với người và dễ dãi với bản thân (phá cam kết tập luyện, trễ giờ với chính mình) là một gốc. Mỗi ngày giữ đúng <strong>một</strong> cam kết nhỏ với bản thân không nhân nhượng — đó là rèn <em>định lực</em>, nền của mọi sự cứng cỏi.</li>
+  <li><strong>Xét tâm tối</strong> (ghép vào mục III): thêm câu hỏi thứ tư — <em>"Hôm nay mình có nhượng bộ chỗ nào mà sau đó thấy ấm ức không? Lúc đó mình sợ cái gì?"</em></li>
+</ul>
+
+<h3>Thước đo tiến bộ</h3>
+<ul>
+  <li>Từ chối xong mà tâm <strong>thanh thản</strong>, không day dứt cả buổi — đó là đã chuyển từ dễ dãi sang bao dung có chọn lọc.</li>
+  <li>Người khác bắt đầu <strong>tôn trọng giờ giấc, lời hứa, công sức của mình hơn</strong> — vì mình đã tôn trọng chúng trước.</li>
+  <li>Vẫn được quý mến, nhưng là quý mến kèm nể trọng — không phải kiểu "dễ tính, nhờ gì cũng được".</li>
+</ul>
+
+<h2 id="phac-do">X. Phác đồ riêng 30 ngày</h2>
+<p><strong>Chẩn đoán:</strong> Dễ dãi ở <strong>mọi mặt</strong> (bản thân, người khác, công việc/tiền bạc, gia đình) — tức không phải thói quen theo hoàn cảnh mà là <strong>một nếp tâm gốc</strong>: né cảm giác khó chịu của va chạm. Ba gốc rễ cùng có mặt: sợ mất lòng (<em>danh</em>), ngại phiền (<em>lười tâm</em>), mềm lòng thương người (<em>tình</em>). Và quan trọng nhất: sau nhượng bộ là <strong>ấm ức, tự trách</strong> — bằng chứng đây là <em>đè nén</em>, không phải bao dung. Đè nén tích lâu ngày bào mòn cả tâm tĩnh lẫn khí thế, nên khắc phục dễ dãi <strong>không phải việc phụ</strong> mà là cửa ải chính của đường tu này.</p>
+<p><strong>Điểm tựa:</strong> Cái ấm ức kia chính là <strong>chuông báo</strong> trời cho — mỗi lần nó vang lên là một ranh giới vừa bị vượt qua. Người dễ dãi mà còn biết ấm ức là còn nguyên cảm nhận về giá trị bản thân; chỉ cần chuyển ấm ức <em>sau</em> sự việc thành nhận biết <em>trước</em> sự việc.</p>
+<p><strong>Thứ tự khắc phục (quan trọng):</strong> Bắt đầu từ <strong>dễ dãi với bản thân</strong> trước, không phải với người khác. Lý do: chưa giữ nổi lời hứa với chính mình thì lời từ chối với người khác không có nền để đứng — nói "không" xong sẽ lại dao động rồi rút lời. Định lực xây từ trong ra.</p>
+
+<h3>30 ngày đầu</h3>
+<ol>
+  <li><strong>Một cam kết nhỏ với bản thân mỗi ngày, giữ tuyệt đối</strong> — chọn một việc nhỏ đến mức không thể thất bại (dậy đúng một giờ định trước, 10 phút tĩnh tọa sáng, không lướt điện thoại sau giờ X). Một việc thôi, nhưng <strong>không nhân nhượng dù một ngày</strong>.</li>
+  <li><strong>Luật trì hoãn với mọi lời nhờ vả:</strong> câu cửa miệng mới là <em>"Để tôi xem lại rồi trả lời."</em> Áp dụng máy móc, kể cả với người thân. Không cần học nói "không" ngay — chỉ cần <strong>dừng nói "ừ" ngay lập tức</strong>.</li>
+  <li><strong>Sổ ấm ức:</strong> tối ghi lại (1 dòng/lần): hôm nay nhượng bộ chỗ nào → lúc đó sợ cái gì (mất lòng? phiền? thương?) → nếu được làm lại sẽ nói câu gì. Câu "nếu được làm lại" đó chính là kịch bản cho lần sau — vì tình huống luôn lặp lại.</li>
+  <li><strong>Với người hay nài nỉ mình nhất</strong> (ai cũng có 1–2 người như vậy): chuẩn bị sẵn <strong>một câu từ chối ngắn</strong> cho đúng người đó, học thuộc. Khi bị nài, chỉ lặp lại nguyên câu, không giải thích thêm — giải thích là mở cửa cho nài tiếp.</li>
+</ol>
+<p><strong>Riêng về "mềm lòng thương người":</strong> đây là gốc khó nhất vì nó <em>trông giống</em> đức hạnh. Phép thử: giúp xong, người kia <strong>mạnh lên hay ỷ lại hơn</strong>? Giúp mà nuôi sự ỷ lại là hại người dưới vỏ thương người — từ bi có trí tuệ đôi khi chính là từ chối.</p>
+<p><strong>Riêng về gia đình:</strong> không cần tuyên bố thay đổi hay đối đầu. Chỉ đổi <em>một</em> điểm: việc gì đã quyết (giờ riêng của mình, nguyên tắc đã đặt) thì <strong>giữ bằng hành động lặp lại, êm mà không lùi</strong> — nước chảy đá mòn, không cần to tiếng.</p>
+
+<div class="final">
+  Hướng nội mà tu, thuận tự nhiên mà sống,<br>
+  làm hết mình mà không tranh, buông chấp trước mà không buông bổn phận —<br>
+  <strong>tâm tĩnh tự đến, đạo tự hiện.</strong>
+</div>
+
+<footer>Hướng dẫn tu tập tâm tính — cập nhật 06/2026</footer>
+
+</div>
+</body>
+</html>
