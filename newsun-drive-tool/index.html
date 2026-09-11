@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NewSun Drive Tool</title>
+<meta name="description" content="Công cụ nội bộ của New Sun Hospitality: trợ lý Zalo ghi tiến độ công việc lên Google Sheet của chính công ty.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='8' y='6' width='48' height='52' rx='6' fill='%230f9d58'/><path d='M20 24h24M20 34h24M20 44h16' stroke='%23fff' stroke-width='4' stroke-linecap='round'/></svg>">
+<style>
+ :root{--bg:#fff;--fg:#1f1f1f;--muted:#5f6368;--line:#dadce0;--card:#f8f9fa;--blue:#1a73e8}
+ @media (prefers-color-scheme:dark){:root{--bg:#1b1b1b;--fg:#e8eaed;--muted:#9aa0a6;--line:#3c4043;--card:#252628;--blue:#8ab4f8}}
+ *{box-sizing:border-box}
+ body{margin:0;font:16px/1.65 system-ui,'Noto Sans',sans-serif;background:var(--bg);color:var(--fg)}
+ .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+ h1{font-size:30px;margin:0 0 6px;font-weight:600;letter-spacing:-.02em}
+ .tag{color:var(--muted);font-size:15px;margin:0 0 36px}
+ h2{font-size:19px;margin:40px 0 10px;font-weight:600}
+ h3{font-size:15px;margin:22px 0 6px;font-weight:600}
+ ul{padding-left:22px} li{margin-bottom:7px}
+ code{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:14px}
+ a{color:var(--blue)}
+ .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:18px 0}
+ table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}
+ th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+ th{font-weight:600;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+ footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+ footer a{margin-right:18px}
+ .en{margin-top:52px;padding-top:30px;border-top:1px solid var(--line)}
+ .en h2:first-child{margin-top:0}
+</style></head><body><div class="wrap">
+
+<h1>NewSun Drive Tool</h1>
+<p class="tag">Công cụ nội bộ của New Sun Hospitality · cập nhật ngày 11 tháng 9, 2026</p>
+
+<div class="card">
+<p style="margin-top:0">NewSun Drive Tool là phần tự động hoá nội bộ của New Sun Hospitality.
+Nó giúp trợ lý ảo trên Zalo của công ty ghi tiến độ công việc lên <strong>Google Sheet nằm trong
+chính tài khoản Google của công ty</strong>, để nhân sự mở một link cố định là thấy việc ai đang
+làm tới đâu.</p>
+<p style="margin-bottom:0">Đây không phải sản phẩm bán ra ngoài. Không có đăng ký, không có người
+dùng công khai. Công cụ chỉ hoạt động trên một tài khoản Google duy nhất do công ty sở hữu.</p>
+</div>
+
+<h2>Công cụ làm gì</h2>
+<ul>
+  <li>Tạo và cập nhật một bảng tính theo dõi tiến độ trong Google Drive của công ty.</li>
+  <li>Mỗi tháng tạo một tab riêng, đầu tháng chuyển những việc chưa xong sang tab tháng mới.</li>
+  <li>Đặt quyền xem cho bảng tính đó để nhân sự trong nhóm mở link là đọc được.</li>
+  <li>Mỗi sáng gửi link bảng tính vào nhóm chat nội bộ của công ty.</li>
+</ul>
+
+<h2>Quyền Google mà công cụ xin</h2>
+<table>
+<tr><th>Scope</th><th>Dùng để làm gì</th></tr>
+<tr>
+  <td><code>.../auth/drive</code></td>
+  <td>Tạo bảng tính theo dõi tiến độ trong Drive của công ty và đặt quyền chia sẻ cho bảng tính
+      đó, để nhân sự mở link là xem được. Service account không tạo được file vì không có dung
+      lượng Drive, nên bước tạo file bắt buộc chạy bằng tài khoản người thật của công ty.</td>
+</tr>
+<tr>
+  <td><code>.../auth/spreadsheets</code></td>
+  <td>Ghi tiêu đề cột, thêm hàng công việc, tạo tab theo tháng, và đọc lại để biết việc nào chưa
+      xong cần chuyển sang tháng sau.</td>
+</tr>
+</table>
+
+<h2>Ai dùng</h2>
+<p>Chỉ nhân sự của New Sun Hospitality, qua một tài khoản Google duy nhất của công ty. Công cụ
+không mở cho người dùng bên ngoài và không có chức năng đăng ký.</p>
+
+<h2>Liên hệ</h2>
+<p>caochitam@gmail.com</p>
+
+<div class="en">
+<h2>About (English)</h2>
+<p><strong>Last updated: September 11, 2026</strong></p>
+<p>NewSun Drive Tool is an internal automation used by New Sun Hospitality. It lets the company's
+Zalo assistant write work-progress records into a Google Sheet that lives inside the company's own
+Google account, so staff can open one fixed link and see the current status of each task.</p>
+<p>This is not a product offered to the public. There is no sign-up and there are no public users.
+The tool operates on a single Google account owned by the company.</p>
+
+<h3>What it does</h3>
+<ul>
+  <li>Creates and updates a progress-tracking spreadsheet in the company's Google Drive.</li>
+  <li>Creates one tab per month and carries unfinished tasks into the new month's tab.</li>
+  <li>Sets the sharing permission on that spreadsheet so staff can open the link and read it.</li>
+  <li>Posts the spreadsheet link into the company's internal chat group each morning.</li>
+</ul>
+
+<h3>Google scopes requested</h3>
+<ul>
+  <li><code>https://www.googleapis.com/auth/drive</code> — create the progress spreadsheet in the
+      company Drive and manage its sharing permissions. A service account cannot create Drive files
+      because it has no storage quota, so file creation must run as the company's own user account.</li>
+  <li><code>https://www.googleapis.com/auth/spreadsheets</code> — write header rows and task rows,
+      add monthly tabs, and read back which tasks are unfinished so they can be carried over.</li>
+</ul>
+
+<h3>Contact</h3>
+<p>caochitam@gmail.com</p>
+</div>
+
+<footer>
+<a href="privacy.html">Chính sách quyền riêng tư</a>
+<a href="terms.html">Điều khoản sử dụng</a>
+</footer>
+</div></body></html>
