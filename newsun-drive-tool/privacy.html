@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Chính sách quyền riêng tư — NewSun Drive Tool</title>
+<meta name="description" content="Chính sách quyền riêng tư của NewSun Drive Tool: dữ liệu Google nào được truy cập, dùng làm gì, lưu ở đâu và cách xoá.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect x='8' y='6' width='48' height='52' rx='6' fill='%230f9d58'/><path d='M20 24h24M20 34h24M20 44h16' stroke='%23fff' stroke-width='4' stroke-linecap='round'/></svg>">
+<style>
+ :root{--bg:#fff;--fg:#1f1f1f;--muted:#5f6368;--line:#dadce0;--card:#f8f9fa;--blue:#1a73e8}
+ @media (prefers-color-scheme:dark){:root{--bg:#1b1b1b;--fg:#e8eaed;--muted:#9aa0a6;--line:#3c4043;--card:#252628;--blue:#8ab4f8}}
+ *{box-sizing:border-box}
+ body{margin:0;font:16px/1.65 system-ui,'Noto Sans',sans-serif;background:var(--bg);color:var(--fg)}
+ .wrap{max-width:760px;margin:0 auto;padding:56px 24px 80px}
+ h1{font-size:28px;margin:0 0 4px;font-weight:600;letter-spacing:-.02em}
+ .date{color:var(--muted);font-size:14px;margin:0 0 36px}
+ h2{font-size:19px;margin:40px 0 10px;font-weight:600}
+ h3{font-size:15px;margin:22px 0 6px;font-weight:600}
+ ul{padding-left:22px} li{margin-bottom:7px}
+ code{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:14px}
+ a{color:var(--blue)}
+ .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px 24px;margin:18px 0}
+ table{border-collapse:collapse;width:100%;margin:16px 0;font-size:15px}
+ th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+ th{font-weight:600;color:var(--muted);font-size:13px;text-transform:uppercase;letter-spacing:.04em}
+ footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}
+ footer a{margin-right:18px}
+ .en{margin-top:52px;padding-top:30px;border-top:1px solid var(--line)}
+ .en h2:first-child{margin-top:0}
+</style></head><body><div class="wrap">
+
+<h1>Chính sách quyền riêng tư</h1>
+<p class="date">NewSun Drive Tool · cập nhật ngày 11 tháng 9, 2026</p>
+
+<h2>Tóm tắt</h2>
+<div class="card">
+<p style="margin-top:0">NewSun Drive Tool là công cụ nội bộ của New Sun Hospitality. Dữ liệu
+Google mà nó đọc và ghi <strong>nằm trong chính tài khoản Google của công ty</strong> và không đi
+tới bất kỳ bên thứ ba nào.</p>
+<p style="margin-bottom:0">Chúng tôi không bán dữ liệu, không dùng cho quảng cáo, không dùng để
+huấn luyện mô hình, và không chuyển dữ liệu cho ai khác ngoài chính các API của Google.</p>
+</div>
+
+<h2>Dữ liệu Google mà công cụ truy cập</h2>
+<table>
+<tr><th>Scope</th><th>Truy cập gì</th><th>Dùng để làm gì</th></tr>
+<tr>
+  <td><code>.../auth/drive</code></td>
+  <td>File và quyền chia sẻ trong Google Drive của tài khoản công ty.</td>
+  <td>Tạo bảng tính theo dõi tiến độ, và đặt quyền xem cho bảng tính đó để nhân sự trong nhóm mở
+      link là đọc được. Công cụ không tải về, không lập chỉ mục và không sao lưu các file khác
+      trong Drive.</td>
+</tr>
+<tr>
+  <td><code>.../auth/spreadsheets</code></td>
+  <td>Nội dung các bảng tính của tài khoản công ty.</td>
+  <td>Ghi tiêu đề cột và hàng công việc, tạo tab theo từng tháng, đọc lại để biết việc nào chưa
+      xong cần chuyển sang tab tháng sau.</td>
+</tr>
+</table>
+
+<h2>Dữ liệu nào được ghi vào bảng tính</h2>
+<p>Chỉ thông tin điều hành công việc do chính nhân sự công ty nhập vào hệ thống nội bộ:</p>
+<ul>
+  <li>Mã và tên công việc, người phụ trách, ngày bắt đầu, hạn chót.</li>
+  <li>Trạng thái, phần trăm hoàn thành, ghi chú, thời điểm cập nhật.</li>
+</ul>
+<p>Công cụ <strong>không</strong> ghi mật khẩu, token, khoá API hay thông tin thanh toán vào bảng
+tính. Công cụ không thu thập dữ liệu cá nhân của khách hàng để đưa lên Drive.</p>
+
+<h2>Dữ liệu lưu ở đâu</h2>
+<ul>
+  <li><strong>Token đăng nhập Google</strong> — lưu trên máy chủ riêng của công ty, trong file
+      quyền <code>600</code> chỉ tài khoản hệ thống của ứng dụng đọc được. Token không bao giờ
+      được gửi đi đâu ngoài máy chủ cấp token của Google.</li>
+  <li><strong>Bản ghi công việc</strong> — lưu trong cơ sở dữ liệu nội bộ trên cùng máy chủ đó,
+      và trong bảng tính thuộc Drive của công ty.</li>
+  <li>Máy chủ do New Sun Hospitality thuê và quản trị. Không có dịch vụ phân tích hành vi, không
+      có mạng quảng cáo, không có kho dữ liệu của bên thứ ba nào trong đường đi.</li>
+</ul>
+
+<h2>Chia sẻ cho bên thứ ba</h2>
+<p>Không. Công cụ chỉ kết nối tới các API của Google. Dữ liệu không được bán, cho thuê, trao đổi
+hay chuyển cho bất kỳ tổ chức nào khác. Công cụ không dùng dữ liệu Google của người dùng để phát
+triển, cải thiện hay huấn luyện mô hình trí tuệ nhân tạo dùng chung.</p>
+
+<h2>Ai xem được bảng tính</h2>
+<p>Bảng tính theo dõi tiến độ mặc định ở chế độ riêng tư. Khi công ty quyết định, quyền xem có thể
+được mở cho từng địa chỉ email được mời, hoặc cho bất kỳ ai có link ở mức chỉ đọc, nhằm để nhân sự
+trong nhóm chat nội bộ mở link là thấy. Quyết định này do chủ tài khoản Google của công ty đưa ra
+và có thể thu hồi bất cứ lúc nào trong giao diện Google Drive.</p>
+
+<h2>Lưu giữ và xoá</h2>
+<ul>
+  <li>Chủ tài khoản thu hồi quyền của công cụ bất cứ lúc nào tại
+      <a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>.
+      Ngay khi thu hồi, công cụ mất toàn bộ khả năng truy cập Drive.</li>
+  <li>Xoá file token trên máy chủ là xoá hết dấu vết đăng nhập trên máy chủ.</li>
+  <li>Bảng tính và các bản ghi công việc do công ty sở hữu; công ty xoá lúc nào cũng được, trực
+      tiếp trong Google Drive.</li>
+  <li>Bản ghi công việc được giữ trong thời gian còn phục vụ việc theo dõi điều hành, sau đó xoá
+      theo quyết định của công ty.</li>
+</ul>
+
+<h2>Bảo mật</h2>
+<ul>
+  <li>Token và khoá lưu ở quyền tệp <code>600</code>, không nằm trong mã nguồn và không được đưa
+      vào hệ thống quản lý phiên bản.</li>
+  <li>Truy cập máy chủ giới hạn bằng khoá SSH riêng cho từng máy, không dùng mật khẩu.</li>
+  <li>Mọi kết nối tới Google đi qua HTTPS.</li>
+</ul>
+
+<h2>Trẻ em</h2>
+<p>Công cụ là phần mềm điều hành nội bộ dành cho nhân sự công ty, không hướng tới trẻ em dưới 13
+tuổi và không cố ý thu thập dữ liệu của trẻ em.</p>
+
+<h2>Thay đổi chính sách</h2>
+<p>Nếu chính sách thay đổi, trang này được cập nhật kèm ngày mới.</p>
+
+<h2>Liên hệ</h2>
+<p>caochitam@gmail.com</p>
+
+<div class="en">
+<h2>Privacy Policy (English)</h2>
+<p><strong>Last updated: September 11, 2026</strong></p>
+
+<h3>Summary</h3>
+<p>NewSun Drive Tool is an internal tool of New Sun Hospitality. The Google data it reads and
+writes stays inside the company's own Google account and is not transferred to any third party. We
+do not sell the data, do not use it for advertising, do not use it to train AI models, and do not
+disclose it to anyone other than Google's own APIs.</p>
+
+<h3>Google user data accessed</h3>
+<ul>
+  <li><code>https://www.googleapis.com/auth/drive</code> — files and sharing permissions in the
+      company account's Google Drive. Used to create the progress-tracking spreadsheet and to set
+      its sharing permission so staff can open the link and read it. The tool does not download,
+      index or back up any other file in the Drive.</li>
+  <li><code>https://www.googleapis.com/auth/spreadsheets</code> — spreadsheet contents in the
+      company account. Used to write header and task rows, add one tab per month, and read back
+      which tasks are unfinished so they can be carried into the next month's tab.</li>
+</ul>
+
+<h3>What gets written into the spreadsheet</h3>
+<p>Only operational task information entered by company staff into the internal system: task code
+and title, assignee, start date, deadline, status, percent complete, notes, and last-updated time.
+The tool never writes passwords, tokens, API keys or payment details into a spreadsheet, and does
+not upload customer personal data to Drive.</p>
+
+<h3>Where data is stored</h3>
+<p>The Google OAuth token is stored on a private server operated by New Sun Hospitality, in a file
+with mode <code>600</code> readable only by the application's own system account, and is never
+sent anywhere except Google's token endpoint. Task records live in an internal database on that
+same server and in the spreadsheet inside the company's Drive. There is no analytics provider, no
+ad network and no third-party data store anywhere in the path.</p>
+
+<h3>Sharing with third parties</h3>
+<p>None. The tool connects only to Google APIs. Data is not sold, rented, traded or transferred to
+any other organization, and is not used to develop, improve or train general-purpose AI models.</p>
+
+<h3>Who can view the spreadsheet</h3>
+<p>The progress spreadsheet is private by default. At the company's decision, view access may be
+granted to specific invited email addresses, or to anyone with the link in read-only mode, so that
+staff in the internal chat group can open it directly. That decision is made by the owner of the
+company's Google account and can be revoked at any time from the Google Drive interface.</p>
+
+<h3>Retention and deletion</h3>
+<p>The account owner can revoke the tool's access at any time at
+<a href="https://myaccount.google.com/permissions">myaccount.google.com/permissions</a>, which
+immediately removes all Drive access. Deleting the token file on the server removes the stored
+credential. The spreadsheet and task records are owned by the company and can be deleted at any
+time directly in Google Drive. Task records are retained only while they serve operational
+tracking, then deleted at the company's discretion.</p>
+
+<h3>Security</h3>
+<p>Tokens and keys are stored with file mode <code>600</code>, are kept out of the source code and
+are excluded from version control. Server access is restricted to per-machine SSH keys with no
+password login. All connections to Google use HTTPS.</p>
+
+<h3>Children</h3>
+<p>The tool is internal operations software for company staff. It is not directed to children
+under 13 and does not knowingly collect their data.</p>
+
+<h3>Changes</h3>
+<p>If this policy changes, this page is updated with a new date.</p>
+
+<h3>Contact</h3>
+<p>caochitam@gmail.com</p>
+</div>
+
+<footer><a href="index.html">Trang chủ</a><a href="terms.html">Điều khoản sử dụng</a></footer>
+</div></body></html>
